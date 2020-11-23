@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:share_card/pages/homepage.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class OTP extends StatefulWidget {
@@ -32,7 +33,9 @@ class _OTPState extends State<OTP> {
         ).centered(),
         30.heightBox,
         FlatButton(
-          onPressed: (){},
+          onPressed: (){
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(context)=>HomePage()),ModalRoute.withName('/login'));
+          },
           child: "CONTINUE".text.size(22).semiBold.white.make().py12(),
           color: Colors.blue,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),

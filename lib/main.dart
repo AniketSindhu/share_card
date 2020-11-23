@@ -11,6 +11,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Share card',
+      debugShowCheckedModeBanner: false,
+      routes: {
+        'login':(context)=>Login()
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
