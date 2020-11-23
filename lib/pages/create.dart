@@ -36,7 +36,9 @@ class _CreateState extends State<Create> {
             child: "For me".text.size(22).black.make(),          
           ),
           OutlineButton(
-            onPressed: (){},
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder:(context)=>CreateCard()));
+            },
             color: Vx.blue500,
             borderSide: BorderSide(width: 2,color: Vx.blue500),
             child: "For Others".text.size(22).black.make(),          

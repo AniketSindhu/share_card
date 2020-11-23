@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:share_card/pages/addCredits.dart';
+import 'package:get/get.dart';
 class OptionsModel{
   final Icon icon;
   final String name;
@@ -8,7 +9,9 @@ class OptionsModel{
 }
 
 List<OptionsModel> optionList=[
-  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:30),name:"Add Credit",onTap: (){}),
+  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:30),name:"Add Credit",onTap: (){
+    Get.to(AddCredits());
+  }),
   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:30),name:"Add On",onTap: (){}),
   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:30),name:"Profile",onTap: (){}),
   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:30),name:"Premium Member",onTap: (){}),

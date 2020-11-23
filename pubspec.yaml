@@ -32,6 +32,10 @@ dependencies:
   flutter_svg: ^0.19.2+1
   otp_text_field: ^1.0.1
   pretty_qr_code: ^1.0.1
+  get:
+    git:
+      url: https://github.com/jonataslaw/getx.git
+      ref: dev
 
 dev_dependencies:
   flutter_test:
