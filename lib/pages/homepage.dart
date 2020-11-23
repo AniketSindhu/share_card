@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:share_card/pages/cardListPage.dart';
+import 'package:share_card/pages/chat.dart';
+import 'package:share_card/pages/create.dart';
+import 'package:share_card/pages/more.dart';
 import 'package:share_card/pages/qr.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -13,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: index==0?CardList():index==1?Qr():Container(),
+      body: index==0?CardList():index==1?Qr():index==2?Create():index==3?Chat():More(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
         showSelectedLabels: true,

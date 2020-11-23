@@ -21,7 +21,6 @@ class _CardListState extends State<CardList> {
       ),
       body: VStack([
         TextField(
-          keyboardType: TextInputType.number,
           decoration: InputDecoration(
             hintText: "Search",
             suffixIcon: Icon(Icons.search),
