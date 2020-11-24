@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "180999310605",
+    "firebase_url": "https://share-card-1a97e.firebaseio.com",
+    "project_id": "share-card-1a97e",
+    "storage_bucket": "share-card-1a97e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180999310605:android:8ce977eda10a8f055cf444",
+        "android_client_info": {
+          "package_name": "com.aniket.share_card"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180999310605-rm95nf4mvojjtmv079ui404nqb2816m2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aniket.share_card",
+            "certificate_hash": "3e757356bc630beb82922b8f55eca683efbdc53c"
+          }
+        },
+        {
+          "client_id": "180999310605-2bgesgr4auda10j6o03ggtsvflvmrdph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCP0rloXZswhKkFZTXi13wFYgBSyKz7OQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180999310605-2bgesgr4auda10j6o03ggtsvflvmrdph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

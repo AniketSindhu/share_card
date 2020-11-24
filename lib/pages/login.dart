@@ -9,6 +9,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  int phone;
+  TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +26,10 @@ class _LoginState extends State<Login> {
         10.heightBox,
         TextField(
           keyboardType: TextInputType.number,
+          controller: phoneController,
           decoration: InputDecoration(
             labelText: "Mobile Number",
-            prefixText: "+65 ",
+            prefixText: "+91 ",
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(45),
               borderSide: BorderSide(
