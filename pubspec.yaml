@@ -32,11 +32,13 @@ dependencies:
   flutter_svg: ^0.19.2+1
   otp_text_field: ^1.0.1
   pretty_qr_code: ^1.0.1
-  firebase_core: "0.5.2"
+  firebase_core: "0.5.2+1"
   cloud_firestore: ^0.14.3
   firebase_storage: ^5.0.1
   shared_preferences: ^0.5.12+4
-  firebase_auth: ^0.18.3
+  firebase_auth: ^0.18.3+1
+  intl_phone_field: ^1.4.2
+  random_string: ^2.1.0
   get:
     git:
       url: https://github.com/jonataslaw/getx.git

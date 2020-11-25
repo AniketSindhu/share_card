@@ -1,11 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/pages/homepage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class OTP extends StatefulWidget {
+  final String verificationId;
+  final String phoneNo;
+  OTP({this.verificationId,this.phoneNo});
   @override
   _OTPState createState() => _OTPState();
 }
@@ -27,20 +33,54 @@ class _OTPState extends State<OTP> {
           fieldWidth: 20,
           textFieldAlignment: MainAxisAlignment.spaceAround,
           fieldStyle: FieldStyle.underline,
-          onCompleted: (pin) {
-            print("Completed: " + pin);
+          onCompleted: (pin) async{
+            final close = context.showLoading(msg: "Loading");
+            Future.delayed(2.seconds,close);
+            PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(verificationId: widget.verificationId, smsCode: pin);
+            await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential).catchError((e){
+              context.showToast(
+                msg: 'invalid code',
+                showTime: 4500,
+                bgColor: Vx.red500,
+                textColor: Colors.white,
+                position: VxToastPosition.top,
+                pdHorizontal: 20,
+                pdVertical: 10);
+            }).then((value) async{
+              if(value!=null){
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setBool('login', true);
+                await firstTime().then((value) async{
+                  if(value){
+                    await addUser(widget.phoneNo).then((value){
+                      context.showToast(
+                        msg: 'User Logged in',
+                        showTime: 4500,
+                        bgColor: Vx.green500,
+                        textColor: Colors.white,
+                        position: VxToastPosition.top,
+                        pdHorizontal: 20,
+                        pdVertical: 10);
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(context){return HomePage();}),ModalRoute.withName('/login'));
+                    });
+                  }
+                  else{
+                    context.showToast(
+                        msg: 'User Logged in',
+                        showTime: 4500,
+                        bgColor: Vx.green500,
+                        textColor: Colors.white,
+                        position: VxToastPosition.top,
+                        pdHorizontal: 20,
+                        pdVertical: 10);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(context){return HomePage();}),ModalRoute.withName('/login'));
+                  }
+                });
+              }
+            });
           },
         ).centered(),
-        30.heightBox,
-        FlatButton(
-          onPressed: (){
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder:(context)=>HomePage()),ModalRoute.withName('/login'));
-          },
-          child: "CONTINUE".text.size(22).semiBold.white.make().py12(),
-          color: Colors.blue,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
-        ).w(double.infinity),
-        (context.percentHeight*4).heightBox
+        (context.percentHeight*10).heightBox
       ],alignment: MainAxisAlignment.center,).p20().centered()
     );
   }
