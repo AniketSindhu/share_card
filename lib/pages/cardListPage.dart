@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_card/cardDesigns.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/model/UserModel.dart';
+import 'package:share_card/model/cardModel.dart';
 import 'package:share_card/pages/create.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -12,9 +14,12 @@ class CardList extends StatefulWidget {
 
 class _CardListState extends State<CardList> {
   UserModel user;
-
+  CardModel card;
   getUser1() async{
+    card = await getCurrentUserCard();
     user = await getUser();
+    setState(() {
+    });
   }
 
   void initState(){
@@ -42,7 +47,7 @@ class _CardListState extends State<CardList> {
           Icon(Icons.person,color: Vx.blue900,size: 30,).p12(),
           ],
       ),
-      body: VStack([
+      body: user!=null||card!=null?VStack([
         TextField(
           decoration: InputDecoration(
             hintText: "Search",
@@ -61,6 +66,7 @@ class _CardListState extends State<CardList> {
             ),
           )
         ).w(double.infinity),
+        !user.cardCreated?
         Expanded(
           child:Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,8 +76,18 @@ class _CardListState extends State<CardList> {
               "No card here!".text.semiBold.size(18).makeCentered()
             ],
           )
-        )
-      ]).p16(),
+        ):
+          VStack([
+            10.heightBox,
+            "My Card:".text.semiBold.size(24).make(),
+            5.heightBox,
+            Padding(
+             padding: EdgeInsets.all(10),
+             child:cardDesigns(card, context)
+            )
+          ])
+      ]).p16()
+      :CircularProgressIndicator().centered(),
     );
   }
 }

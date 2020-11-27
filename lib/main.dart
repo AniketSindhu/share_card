@@ -59,7 +59,8 @@ class App extends StatelessWidget {
             title: 'Share card',
             debugShowCheckedModeBanner: false,
             routes: {
-              'login':(context)=>Login()
+              'login':(context)=>Login(),
+              'home':(context)=>HomePage()
             },
             theme: ThemeData(
               primarySwatch: Colors.blue,
@@ -107,7 +108,8 @@ class App1 extends StatelessWidget {
             title: 'Share card',
             debugShowCheckedModeBanner: false,
             routes: {
-              'login':(context)=>Login()
+              'login':(context)=>Login(),
+              'home':(context)=>HomePage()
             },
             theme: ThemeData(
               primarySwatch: Colors.blue,

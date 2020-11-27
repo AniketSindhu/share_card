@@ -40,6 +40,7 @@ dependencies:
   intl_phone_field: ^1.4.2
   random_string: ^2.1.0
   image_picker: ^0.6.7+14
+  flutter_barcode_scanner: ^1.0.1
   get:
     git:
       url: https://github.com/jonataslaw/getx.git
