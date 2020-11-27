@@ -13,6 +13,7 @@ class _CreateState extends State<Create> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Vx.blue500,
         leadingWidth: 10,
         title: "Create Card".text.semiBold.size(20).white.make(),

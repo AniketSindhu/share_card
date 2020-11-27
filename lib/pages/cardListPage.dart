@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_card/methods/firebase.dart';
+import 'package:share_card/model/UserModel.dart';
+import 'package:share_card/pages/create.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CardList extends StatefulWidget {
@@ -8,9 +11,29 @@ class CardList extends StatefulWidget {
 }
 
 class _CardListState extends State<CardList> {
+  UserModel user;
+
+  getUser1() async{
+    user = await getUser();
+  }
+
+  void initState(){
+    super.initState();
+    getUser1();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder:(context){
+            return Create();
+          }));
+        },
+        backgroundColor: Colors.blue,
+      ),
       appBar: AppBar(
         backgroundColor: Vx.blue500,
         leadingWidth: 10,

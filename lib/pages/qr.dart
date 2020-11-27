@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:share_card/methods/firebase.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class Qr extends StatefulWidget {
@@ -22,12 +24,21 @@ class _QrState extends State<Qr> {
       ),
       body: VStack([
         Expanded(
-          child:PrettyQr(
-            typeNumber: 3,
-            size: 200,
-            data: 'https://www.google.ru',
-            roundEdges: true
-          ).centered()
+          child:FutureBuilder(
+            future: getQr(),
+            builder: (context, snapshot) {
+              if(snapshot.connectionState==ConnectionState.waiting){
+                return CircularProgressIndicator().centered();
+              }
+              else
+                return PrettyQr(
+                  typeNumber: 3,
+                  size: 200,
+                  data: snapshot.data,
+                  roundEdges: true
+                ).centered();
+            }
+          )
         ),
         FlatButton(
           onPressed: (){
