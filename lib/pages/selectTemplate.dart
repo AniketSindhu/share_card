@@ -48,6 +48,7 @@ class _SelectTemplateState extends State<SelectTemplate> {
                   mobile: card.mobile,
                   position: card.position,
                   specialization: card.specialization,
+                  qrCode: card.qrCode
                 );
                 return GestureDetector(
                         onTap: () {

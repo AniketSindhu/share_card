@@ -11,6 +11,7 @@ class CardModel {
   final String mobile;
   final String image;
   final int cardNumber;
+  final String qrCode;
 
   CardModel(
       {this.company,
@@ -22,7 +23,8 @@ class CardModel {
       this.position,
       this.specialization,
       this.website,
-      this.cardNumber});
+      this.cardNumber,
+      this.qrCode});
 
   factory CardModel.fromDocument(DocumentSnapshot doc){
     return CardModel(
@@ -35,7 +37,8 @@ class CardModel {
       specialization: doc['specialization'],
       mobile: doc['phone'],
       image: doc['image'],
-      cardNumber: doc['cardNumber']
+      cardNumber: doc['cardNumber'],
+      qrCode: doc['qrCode']
     );
   }
   

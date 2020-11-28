@@ -17,7 +17,7 @@ Future<bool> firstTime() async {
   String uid = await currentUid();
   final x = await FirebaseFirestore.instance
       .collection('users')
-      .where('userId', isEqualTo: uid)
+      .where('userd', isEqualTo: uid)
       .get();
   return x.docs.isEmpty;
 }
@@ -34,7 +34,7 @@ Future<bool> addUser(String phone) async {
     'qrCode': qrCode,
     'cardCreated': false,
     'isPremium': false
-  });
+  }, SetOptions(merge: true));
   return true;
 }
 
@@ -109,7 +109,70 @@ Future<bool> receiveCard(CardModel card) async {
       .where("userd", isEqualTo: uid)
       .get();
 
-  if (x.docs[0].data()['recieved_cards'].contains(card.mobile)) {
+  if (x.docs[0].data()['recieved_cards'] == null) {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(x.docs[0].data()['phone'])
+        .update({
+      'recievedCard_count': FieldValue.increment(1),
+      'recieved_cards': [card.mobile],
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(x.docs[0].data()['phone'])
+        .collection('notifications')
+        .add({
+      'msg': "You received card from ${card.name}",
+      'time': DateTime.now(),
+      'isRead': false
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(x.docs[0].data()['phone'])
+        .collection('history')
+        .add({
+      'msg': "You received card from ${card.name}",
+      'time': DateTime.now(),
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(card.mobile)
+        .update({
+      'availableCard_count': FieldValue.increment(-1),
+      'sharedCard_count': FieldValue.increment(1)
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(card.mobile)
+        .collection('notifications')
+        .add({
+      'msg': "You shared card with ${x.docs[0].data()['name']}",
+      'time': DateTime.now(),
+      'isRead': false
+    });
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(card.mobile)
+        .collection('history')
+        .add({
+      'msg': "You shared card with ${x.docs[0].data()['name']}",
+      'time': DateTime.now(),
+    });
+
+    await FirebaseFirestore.instance
+        .collection('chats')
+        .doc('${x.docs[0].data()['phone']}-${card.mobile}')
+        .set({
+      'chatId': "${x.docs[0].data()['name']}-${card.name}",
+      'users': [x.docs[0].data()['phone'], card.mobile]
+    });
+    return true;
+  } else if (x.docs[0].data()['recieved_cards'].contains(card.mobile)) {
     return false;
   } else {
     await FirebaseFirestore.instance
@@ -168,10 +231,10 @@ Future<bool> receiveCard(CardModel card) async {
 
     await FirebaseFirestore.instance
         .collection('chats')
-        .doc('${x.docs[0].data()['mobile']}-${card.mobile}')
+        .doc('${x.docs[0].data()['phone']}-${card.mobile}')
         .set({
       'chatId': "${x.docs[0].data()['name']}-${card.name}",
-      'users': [x.docs[0].data()['mobile'], card.mobile]
+      'users': [x.docs[0].data()['phone'], card.mobile]
     });
     return true;
   }
@@ -185,13 +248,14 @@ Future getNotifications() async {
       .get();
   final y = await FirebaseFirestore.instance
       .collection('users')
-      .doc(x.docs[0].data()['mobile'])
-      .collection('notifications')
+      .doc(x.docs[0].data()['phone'])
+      .collection('notifications').orderBy('time')
       .get();
-  for (int i = 0; i <= y.docs.length; i++) {
+  
+  for (int i = 0; i < y.docs.length; i++) {
     FirebaseFirestore.instance
         .collection('users')
-        .doc(x.docs[0].data()['mobile'])
+        .doc(x.docs[0].data()['phone'])
         .collection('notifications')
         .doc(y.docs[i].id)
         .update({'isRead': true});

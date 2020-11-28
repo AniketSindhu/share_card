@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:share_card/cardDesigns.dart';
 import 'package:share_card/methods/firebase.dart';
+import 'package:share_card/model/UserModel.dart';
 import 'package:share_card/model/cardModel.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -20,7 +21,7 @@ class _QrState extends State<Qr> {
       appBar: AppBar(
         backgroundColor: Vx.blue500,
         leadingWidth: 10,
-        title: "Share Card".text.semiBold.size(20).white.make(),
+        title: "Scan QR code".text.semiBold.size(20).white.make(),
         actions: [
           Icon(Icons.person,color: Vx.blue900,size: 30,).p12(),
           ],
@@ -47,6 +48,19 @@ class _QrState extends State<Qr> {
           onPressed: () async{
             String qr=await FlutterBarcodeScanner.scanBarcode("#ff6666", 'Stop Scan', true, ScanMode.QR);
             final x = await FirebaseFirestore.instance.collection("users").where('qrCode',isEqualTo:qr).get();
+            UserModel user = await getUser();
+
+            if(!user.cardCreated){
+              context.showToast(
+                  msg: 'First create a card',
+                  showTime: 4500,
+                  bgColor: Vx.red500,
+                  textColor: Colors.white,
+                  position: VxToastPosition.top,
+                  pdHorizontal: 20,
+                  pdVertical: 10
+              );
+            }
             if(x.docs.isEmpty){
               context.showToast(
                   msg: 'No user found invalid qr code',
@@ -87,6 +101,7 @@ class _QrState extends State<Qr> {
                 builder: (context){
                   return Dialog(
                     child: VStack([
+                      20.heightBox,
                       cardDesigns(card, context),
                       20.heightBox,
                       FlatButton(
@@ -119,13 +134,13 @@ class _QrState extends State<Qr> {
                         child: "Add card".text.make(),
                         color: Vx.blue500,
                       ).centered()
-                    ]),
+                    ]).p12(),
                   );
                 }
               );
             }
           },
-          child: "Share QR code".text.size(20).semiBold.white.make().py12(),
+          child: "Scan QR code".text.size(20).semiBold.white.make().py12(),
           color: Colors.blue,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
         ).w(double.infinity),
@@ -134,7 +149,7 @@ class _QrState extends State<Qr> {
           onPressed: (){
             
           },
-          child: "Scan QR code".text.size(20).semiBold.white.make().py12(),
+          child: "Share Card".text.size(20).semiBold.white.make().py12(),
           color: Colors.blue,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
         ).w(double.infinity),
