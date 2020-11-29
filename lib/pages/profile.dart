@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/model/UserModel.dart';
@@ -41,6 +42,41 @@ class _ProfilePageState extends State<ProfilePage> {
         appBar: AppBar(
           title: "Profile".text.semiBold.size(20).white.make(),
           centerTitle: true,
+          actions: [
+            GestureDetector(
+              child: "Save".text.white.size(20).make().centered().p12(),
+              onTap: ()async{
+                final close = context.showLoading(msg: 'loading');
+                Future.delayed(1.seconds,close);
+                await FirebaseFirestore.instance.collection('users').doc(user.mobile).update({
+                  'name':nameController.text,
+                  'email': emailController.text,
+                  'company': companyNameController.text,
+                  'location': locationController.text,
+                  'website': webController.text,
+                  'position': positionController.text,
+                  'specialization': specialization,
+                });
+                await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(user.mobile)
+                  .collection('notifications')
+                  .add({
+                    'msg': "Your card details are edited successfully",
+                    'time': DateTime.now(),
+                    'isRead': false
+                  });
+                context.showToast(
+                  msg: 'details updated',
+                  showTime: 2500,
+                  bgColor: Vx.green500,
+                  textColor: Colors.white,
+                  position: VxToastPosition.top,
+                  pdHorizontal: 20,
+                  pdVertical: 10);
+              },
+            )
+          ],
           ),      
         body: user!=null||card!=null?VStack([
           10.heightBox,

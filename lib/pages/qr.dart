@@ -22,9 +22,6 @@ class _QrState extends State<Qr> {
         backgroundColor: Vx.blue500,
         leadingWidth: 10,
         title: "Scan QR code".text.semiBold.size(20).white.make(),
-        actions: [
-          Icon(Icons.person,color: Vx.blue900,size: 30,).p12(),
-          ],
       ),
       body: VStack([
         Expanded(

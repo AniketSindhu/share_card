@@ -33,13 +33,6 @@ class _ChatState extends State<Chat> {
           backgroundColor: Vx.blue500,
           leadingWidth: 10,
           title: "CHAT".text.semiBold.size(20).white.make(),
-          actions: [
-            Icon(
-              Icons.person,
-              color: Vx.blue900,
-              size: 30,
-            ).p12(),
-          ],
         ),
         body: user != null && card != null
             ? StreamBuilder(

@@ -62,7 +62,9 @@ class App extends StatelessWidget {
               'login':(context)=>Login(),
               'home':(context)=>HomePage()
             },
-            theme: ThemeData(
+            themeMode: ThemeMode.dark,
+            darkTheme: ThemeData(brightness: Brightness.dark),
+            theme: ThemeData(            
               primarySwatch: Colors.blue,
             ),
             home: Login(),
@@ -111,6 +113,8 @@ class App1 extends StatelessWidget {
               'login':(context)=>Login(),
               'home':(context)=>HomePage()
             },
+/*             themeMode: ThemeMode.dark,
+            darkTheme: ThemeData.from(colorScheme: ColorScheme.dark()), */
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),

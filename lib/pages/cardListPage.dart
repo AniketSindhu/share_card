@@ -16,6 +16,7 @@ class CardList extends StatefulWidget {
 class _CardListState extends State<CardList> {
   UserModel user;
   CardModel card;
+  TextEditingController search = TextEditingController();
   getUser1() async{
     card = await getCurrentUserCard();
     user = await getUser();
@@ -54,8 +55,12 @@ class _CardListState extends State<CardList> {
       ),
       body: user!=null||card!=null?VStack([
         TextField(
+          onChanged: (v){
+            setState(() {});
+          },
+          controller: search,
           decoration: InputDecoration(
-            hintText: "Search",
+            hintText: "Search name, Specialization, Company",
             suffixIcon: Icon(Icons.search),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
@@ -70,7 +75,7 @@ class _CardListState extends State<CardList> {
               ),
             ),
           )
-        ).w(double.infinity),
+        ).p12().w(double.infinity),
         !user.cardCreated?
         Expanded(
           child:Column(
@@ -81,10 +86,10 @@ class _CardListState extends State<CardList> {
               "No card here!".text.semiBold.size(18).makeCentered()
             ],
           )
-        ):
+        ):search.text.trim().length==0?
           VStack([
             10.heightBox,
-            "My Card:".text.semiBold.size(24).make(),
+            "My Card:".text.semiBold.size(24).make().p4(),
             Padding(
              padding: EdgeInsets.all(10),
              child:cardDesigns(card, context)
@@ -104,7 +109,7 @@ class _CardListState extends State<CardList> {
                     return Column(
                       children: [
                         10.heightBox,
-                        "Added cards:".text.size(24).semiBold.make().objectCenterLeft(),
+                        "Added cards:".text.size(24).semiBold.make().objectCenterLeft().p4(),
                         ListView.builder(
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
@@ -133,8 +138,38 @@ class _CardListState extends State<CardList> {
                 }
               },
             ),
-          ])
-      ]).p16().scrollVertical()
+          ]):
+          FutureBuilder(
+            future: FirebaseFirestore.instance.collection('users').doc(user.mobile).get(),
+            builder: (context, snapshot) {
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: snapshot.data.data()['recieved_cards'].length,
+                itemBuilder: (context,index){
+                  return FutureBuilder(
+                    future: FirebaseFirestore.instance.collection('users').doc(snapshot.data.data()['recieved_cards'][snapshot.data.data()['recieved_cards'].length-index-1]).get(),
+                    builder: (context,snapshot){
+                      if(snapshot.connectionState== ConnectionState.waiting){
+                        return VxBox().gray500.width(context.percentHeight*95).height(250).makeCentered().shimmer();
+                      }
+                      else{
+                        CardModel card1 = CardModel.fromDocument(snapshot.data);
+                        if(card.name.contains(search.text)||card1.specialization.contains(search.text)||card.company.contains(search.text))
+                          return Padding(
+                            padding: EdgeInsets.all(10),
+                            child:cardDesigns(card1, context)
+                          );
+                        else
+                          return Container();
+                      }
+                    },
+                  );
+                }
+              );
+            }
+          ),
+      ]).p8().scrollVertical()
       :Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

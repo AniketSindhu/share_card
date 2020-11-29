@@ -50,8 +50,9 @@ Future<UserModel> getUser() async {
 createCard(String name, String email, String company, String location,
     String website, String position, String specialization, File image) async {
   UserModel user = await getUser();
+  String iid = randomString(6);
   String _uploadedFileURL;
-  String fileName = "Images/";
+  String fileName = "Images/$iid";
   Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
   UploadTask uploadTask = firebaseStorageRef.putFile(image);
   TaskSnapshot taskSnapshot = await uploadTask;
@@ -74,6 +75,16 @@ createCard(String name, String email, String company, String location,
     'cardNumber': 1,
     'cardCreated': true
   }, SetOptions(merge: true));
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.mobile)
+        .collection('notifications')
+        .add({
+      'msg': "Your card was created",
+      'time': DateTime.now(),
+      'isRead': false
+    });
 
   return true;
 }
@@ -249,7 +260,7 @@ Future getNotifications() async {
   final y = await FirebaseFirestore.instance
       .collection('users')
       .doc(x.docs[0].data()['phone'])
-      .collection('notifications').orderBy('time')
+      .collection('notifications').orderBy('time',descending: true)
       .get();
   
   for (int i = 0; i < y.docs.length; i++) {
