@@ -22,12 +22,13 @@ Future<bool> firstTime() async {
   return x.docs.isEmpty;
 }
 
-Future<bool> addUser(String phone) async {
+Future<bool> addUser(String phone,String country) async {
   String uid = await currentUid();
   String qrCode = randomAlphaNumeric(8);
   await FirebaseFirestore.instance.collection("users").doc(phone).set({
     'userd': uid,
     'phone': phone,
+    'country':country,
     'availableCard_count': 100,
     'sharedCard_count': 0,
     'recievedCard_count': 0,
@@ -294,17 +295,17 @@ Future<bool> sayHi(String userMobile,String userName, CardModel card) async{
     return false;
   }
   else{
-    final x = await FirebaseFirestore.instance.collection('chats').doc('$userName-${card.name}').get();
-    final y = await FirebaseFirestore.instance.collection('chats').doc('${card.name}-$userName').get();
+    final x = await FirebaseFirestore.instance.collection('chats').doc('$userMobile-${card.mobile}').get();
+    final y = await FirebaseFirestore.instance.collection('chats').doc('${card.mobile}-$userMobile').get();
     if(x.exists||y.exists){
       return false;
     }
     else{
-      await FirebaseFirestore.instance.collection('chats').doc('$userName-${card.name}').set({
+      await FirebaseFirestore.instance.collection('chats').doc('$userMobile-${card.mobile}').set({
         'chatId':'$userName-${card.name}',
         'users':[userMobile,card.mobile]
       });
-      await FirebaseFirestore.instance.collection('chats').doc('$userName-${card.name}').collection('msg').add({
+      await FirebaseFirestore.instance.collection('chats').doc('$userMobile-${card.mobile}').collection('msg').add({
         'date': DateTime.now().toIso8601String().toString(),
         'from':userMobile,
         'text':"Hi"

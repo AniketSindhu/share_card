@@ -405,7 +405,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
       .makeCentered();
   }
 
-  if(cardModel.cardNumber == 10){
+/*   if(cardModel.cardNumber == 10){
     return VxBox()
       .color(Colors.amber[100])
       .width(context.percentWidth * 95)
@@ -413,7 +413,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
       .shadowMd
       .rounded
       .makeCentered();
-  }
+  } */
 
   
 }

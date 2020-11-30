@@ -15,6 +15,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   String phone;
+  String country;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +47,8 @@ class _LoginState extends State<Login> {
           onChanged: (phone1) {
             setState(() {
               phone = phone1.completeNumber;
+              country = phone1.countryISOCode;
+              print(country);
             });
           },
         ),
@@ -70,7 +73,7 @@ class _LoginState extends State<Login> {
                 prefs.setBool('login', true);
                 await firstTime().then((value) async {
                   if (value) {
-                    await addUser(phone).then((value) {
+                    await addUser(phone,country).then((value) {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
                         return HomePage();
@@ -112,6 +115,7 @@ class _LoginState extends State<Login> {
                         builder: (context) => OTP(
                               verificationId: verificationId,
                               phoneNo: phone,
+                              country:country
                             )));
               },
               codeAutoRetrievalTimeout: (String verificationId) {},

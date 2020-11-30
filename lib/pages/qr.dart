@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:share_card/cardDesigns.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/model/UserModel.dart';
 import 'package:share_card/model/cardModel.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:get/get.dart';
 
 class Qr extends StatefulWidget {
   @override
@@ -143,7 +145,28 @@ class _QrState extends State<Qr> {
         15.heightBox,
         FlatButton(
           onPressed: (){
-            
+            Get.dialog(Dialog(
+              child:FutureBuilder(
+                future: getQr(),
+                builder: (context, snapshot) {
+                  if(snapshot.connectionState==ConnectionState.waiting){
+                    return CircularProgressIndicator().centered();
+                  }
+                  else
+                    return Column(
+                      children: [
+                        PrettyQr(
+                          typeNumber: 3,
+                          size: 200,
+                          data: snapshot.data,
+                          roundEdges: true
+                        ).centered(),
+                        "Share this QR code wth fellow users".text.size(20).make(),
+                      ],mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.min,
+                    ).p64();
+                }
+              )
+            ));
           },
           child: "Share Card".text.size(20).semiBold.white.make().py12(),
           color: Colors.blue,

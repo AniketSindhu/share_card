@@ -10,6 +10,7 @@ class UserModel {
   final String userId;
   final int availableCards;
   final bool isPremium;
+  final String country;
 
   UserModel(
       {
@@ -20,7 +21,8 @@ class UserModel {
         this.sharedCards,
         this.userId,
         this.availableCards,
-        this.isPremium
+        this.isPremium,
+        this.country
       });
 
   factory UserModel.fromDocument(DocumentSnapshot doc){
@@ -32,7 +34,8 @@ class UserModel {
       userId: doc['userd'],
       availableCards: doc['availableCard_count'],
       isPremium: doc['isPremium'],
-      cardCreated: doc['cardCreated']
+      cardCreated: doc['cardCreated'],
+      country: doc['country']
     );
   }
   

@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 import 'package:share_card/pages/help.dart';
 import 'package:share_card/pages/history.dart';
 import 'package:share_card/pages/login.dart';
+import 'package:share_card/pages/nearby.dart';
 import 'package:share_card/pages/premium.dart';
 import 'package:share_card/pages/profile.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:flutter_share/flutter_share.dart';
 class OptionsModel{
   final Icon icon;
   final String name;
@@ -72,7 +74,16 @@ List<OptionsModel> optionList=[
   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Help",onTap: (){
     Get.to(Help());
   }),
-  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Share",onTap: (){}),
+  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Nearby",onTap: (){
+    Get.to(Nearby());
+  }),
+  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Share",onTap: () async{
+    await FlutterShare.share(
+      title: 'NameCARD',
+      text: 'Download this visiting card app',
+      linkUrl: 'https://flutter.dev/',
+    );
+  }),
   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Settings",onTap: (){}),
 /*   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Signature",onTap: (){}), */
   OptionsModel(icon:Icon(Icons.logout,color:Colors.blue[700],size:20),name:"Logout",onTap: (){

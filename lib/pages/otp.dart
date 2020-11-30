@@ -11,7 +11,8 @@ import 'package:velocity_x/velocity_x.dart';
 class OTP extends StatefulWidget {
   final String verificationId;
   final String phoneNo;
-  OTP({this.verificationId,this.phoneNo});
+  final String country;
+  OTP({this.verificationId,this.phoneNo,this.country});
   @override
   _OTPState createState() => _OTPState();
 }
@@ -52,7 +53,7 @@ class _OTPState extends State<OTP> {
                 prefs.setBool('login', true);
                 await firstTime().then((value) async{
                   if(value){
-                    await addUser(widget.phoneNo).then((value){
+                    await addUser(widget.phoneNo,widget.country).then((value){
                       context.showToast(
                         msg: 'User Logged in',
                         showTime: 4500,
