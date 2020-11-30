@@ -85,7 +85,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
                 : Container(),
             2.heightBox,
             cardModel.position.text.size(16).semiBold.make(),
-            5.heightBox,
+            3.heightBox,
             cardModel.company.text.size(18).semiBold.make(),
           ],
           crossAlignment: CrossAxisAlignment.end,

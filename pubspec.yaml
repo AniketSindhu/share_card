@@ -41,6 +41,7 @@ dependencies:
   random_string: ^2.1.0
   image_picker: ^0.6.7+14
   flutter_barcode_scanner: ^1.0.1
+  motion_tab_bar: ^0.1.5
   get:
     git:
       url: https://github.com/jonataslaw/getx.git

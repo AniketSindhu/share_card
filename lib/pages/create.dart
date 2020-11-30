@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_card/pages/createCard.dart';
+import 'package:share_card/pages/createCardOthers.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class Create extends StatefulWidget {
@@ -38,7 +39,7 @@ class _CreateState extends State<Create> {
           ),
           OutlineButton(
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder:(context)=>CreateCard()));
+              Navigator.push(context, MaterialPageRoute(builder:(context)=>CreateCardOthers()));
             },
             color: Vx.blue500,
             borderSide: BorderSide(width: 2,color: Vx.blue500),

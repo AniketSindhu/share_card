@@ -274,6 +274,89 @@ Future getNotifications() async {
   return y.docs;
 }
 
+Future<bool> sayHi(String userMobile,String userName, CardModel card) async{
+  if(userMobile== card.mobile){
+    return false;
+  }
+  else{
+    final x = await FirebaseFirestore.instance.collection('chats').doc('$userName-${card.name}').get();
+    final y = await FirebaseFirestore.instance.collection('chats').doc('${card.name}-$userName').get();
+    if(x.exists||y.exists){
+      return false;
+    }
+    else{
+      await FirebaseFirestore.instance.collection('chats').doc('$userName-${card.name}').set({
+        'chatId':'$userName-${card.name}',
+        'users':[userMobile,card.mobile]
+      });
+      await FirebaseFirestore.instance.collection('chats').doc('$userName-${card.name}').collection('msg').add({
+        'date': DateTime.now().toIso8601String().toString(),
+        'from':userMobile,
+        'text':"Hi"
+      });
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(card.mobile)
+          .collection('notifications')
+          .add({
+        'msg': "You have a new mesage from $userName",
+        'time': DateTime.now(),
+        'isRead': false
+      });
+
+      return true;
+    }     
+  }
+}
+
+Future<bool> createCardOtherfunc(String name, String email, String company, String location,String website, String position, String specialization, File image,String mobile) async{
+  
+  String uid = await currentUid();
+  final x = await FirebaseFirestore.instance
+      .collection('users')
+      .where("userd", isEqualTo: uid)
+      .get();
+  String _uploadedFileURL;
+  String iid = randomString(6);
+  String fileName = "Images/$iid";
+  Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
+  UploadTask uploadTask = firebaseStorageRef.putFile(image);
+  TaskSnapshot taskSnapshot = await uploadTask;
+  await firebaseStorageRef.getDownloadURL().then((fileURL) async {
+    _uploadedFileURL = fileURL;
+  });
+  await firebaseStorageRef.getDownloadURL().then((fileURL) async {
+    _uploadedFileURL = fileURL;
+  });
+  final qr = randomAlphaNumeric(8);
+  FirebaseFirestore.instance.collection("users").doc(x.docs[0].data()['phone']).collection('createdCards').doc(mobile).set({
+    'name': name,
+    'email': email,
+    'company': company,
+    'location': location,
+    'website': website,
+    'position': position,
+    'specialization': specialization,
+    'image': _uploadedFileURL,
+    'cardNumber': 1,
+    'cardCreated': true,
+    'phone': mobile,
+    'qrCode':qr
+  });
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(x.docs[0].data()['phone'])
+        .collection('notifications')
+        .add({
+      'msg': "A new card was created",
+      'time': DateTime.now(),
+      'isRead': false
+    });
+
+  return true;
+
+}
+
 void logout() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool('login', false);

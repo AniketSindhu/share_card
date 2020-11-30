@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/model/UserModel.dart';
 import 'package:share_card/pages/selectTemplate.dart';
+import 'package:share_card/pages/selectTemplateOthers.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateCard extends StatefulWidget {
+class CreateCardOthers extends StatefulWidget {
   @override
-  _CreateCardState createState() => _CreateCardState();
+  _CreateCardOthersState createState() => _CreateCardOthersState();
 }
 
-class _CreateCardState extends State<CreateCard> {
+class _CreateCardOthersState extends State<CreateCardOthers> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -19,6 +20,7 @@ class _CreateCardState extends State<CreateCard> {
   TextEditingController locationController = TextEditingController();
   TextEditingController webController = TextEditingController();
   TextEditingController positionController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   String specialization;
   File _image;
   final picker = ImagePicker();
@@ -161,6 +163,26 @@ class _CreateCardState extends State<CreateCard> {
               )).w(double.infinity).h(60),
           10.heightBox,
           TextFormField(
+              controller: phoneNumberController,
+              validator: (v) =>
+                  v.trim().length < 2 ? " Enter valid phone" : null,
+              decoration: InputDecoration(
+                hintText: "Phone number",
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Vx.gray700,
+                    width: 1,
+                  ),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Vx.gray700,
+                    width: 1,
+                  ),
+                ),
+              )).w(double.infinity).h(60),
+          10.heightBox,
+          TextFormField(
               controller: locationController,
               validator: (v) =>
                   v.trim().length < 2 ? " Enter valid location" : null,
@@ -252,32 +274,31 @@ class _CreateCardState extends State<CreateCard> {
           15.heightBox,
           FlatButton(
             onPressed: () async{
-              if(_formKey.currentState.validate()){
-                if(specialization == null|| _image==null){
-                    context.showToast(
-                        msg: 'Fill all info',
-                        showTime: 4500,
-                        bgColor: Vx.red500,
-                        textColor: Colors.white,
-                        position: VxToastPosition.top,
-                        pdHorizontal: 20,
-                        pdVertical: 10);
-                }
-                else{
-                  final close = context.showLoading(msg: 'Loading');
-                  Future.delayed(Duration(seconds: 3), close);
-                  await createCard(
-                      nameController.text,
-                      emailController.text,
-                      companyNameController.text,
-                      locationController.text,
-                      webController.text,
-                      positionController.text,
-                      specialization,
-                      _image);
+              if(specialization == null|| _image==null){
+                  context.showToast(
+                      msg: 'Fill all info',
+                      showTime: 4500,
+                      bgColor: Vx.red500,
+                      textColor: Colors.white,
+                      position: VxToastPosition.top,
+                      pdHorizontal: 20,
+                      pdVertical: 10);
+              }
+              else{
+                final close = context.showLoading(msg: 'Loading');
+                Future.delayed(Duration(seconds: 3), close);
+                await createCardOtherfunc(
+                    nameController.text,
+                    emailController.text,
+                    companyNameController.text,
+                    locationController.text,
+                    webController.text,
+                    positionController.text,
+                    specialization,
+                    _image,
+                    phoneNumberController.text);
 
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectTemplate()));
-                }
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectTemplateOther(phone: phoneNumberController.text,)));
               }
             },
             child: "Save info".text.size(22).semiBold.white.make().py12(),

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:motion_tab_bar/MotionTabController.dart';
+import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/model/UserModel.dart';
 import 'package:share_card/pages/cardListPage.dart';
@@ -9,29 +11,38 @@ import 'package:share_card/pages/more.dart';
 import 'package:share_card/pages/qr.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'notfications.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int index=0;
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  int index = 0;
+  MotionTabController _tabController;
   UserModel user;
-  getUser1() async{
+  getUser1() async {
     user = await getUser();
-    setState(() {
-    });
+    setState(() {});
   }
 
-  void initState(){
+  void initState() {
     super.initState();
     getUser1();
+    _tabController = new MotionTabController(initialIndex: 1, vsync: this);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: index==0?CardList():index==1?Qr():index==2?Chat():index==3?Notifications():More(),
-      bottomNavigationBar: BottomNavigationBar(
+      body: index == 0
+          ? CardList()
+          : index == 1
+              ? Qr()
+              : index == 2
+                  ? Chat()
+                    : More(),
+/*       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
         showSelectedLabels: true,
         selectedFontSize: 20,
@@ -71,6 +82,24 @@ class _HomePageState extends State<HomePage> {
           label: "Notification"),
           BottomNavigationBarItem(icon: Icon(Icons.more_horiz),label: "More"),
         ],
+      ), */
+      bottomNavigationBar: MotionTabBar(
+        labels: ["Home", "Card", "Chat", "More"],
+        initialSelectedTab: "Home",
+        tabIconColor: Colors.pink,
+        tabSelectedColor: Colors.blue,
+        onTabItemSelected: (val) {
+          setState(() {
+            index = val;
+          });
+        },
+        icons: [
+          Icons.home,
+          Icons.qr_code,
+          Icons.message,
+          Icons.more_horiz
+        ],
+        textStyle: TextStyle(color: Colors.black),
       ),
     );
   }
