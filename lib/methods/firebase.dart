@@ -274,6 +274,21 @@ Future getNotifications() async {
   return y.docs;
 }
 
+Future getHistory() async {
+  String uid = await currentUid();
+  final x = await FirebaseFirestore.instance
+      .collection('users')
+      .where("userd", isEqualTo: uid)
+      .get();
+  final y = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(x.docs[0].data()['phone'])
+      .collection('history').orderBy('time',descending: true)
+      .get();
+  
+  return y.docs;
+}
+
 Future<bool> sayHi(String userMobile,String userName, CardModel card) async{
   if(userMobile== card.mobile){
     return false;
@@ -355,6 +370,23 @@ Future<bool> createCardOtherfunc(String name, String email, String company, Stri
 
   return true;
 
+}
+
+Future<bool> getPremium() async{
+  String uid = await currentUid();
+  final x = await FirebaseFirestore.instance
+      .collection('users')
+      .where("userd", isEqualTo: uid)
+      .get();
+  if(x.docs[0].data()['isPremium']==true){
+    return false;
+  }
+  else{
+    await FirebaseFirestore.instance.collection('users').doc(x.docs[0].data()['phone']).update({
+      'isPremium':true
+    });
+    return true;
+  }
 }
 
 void logout() async {

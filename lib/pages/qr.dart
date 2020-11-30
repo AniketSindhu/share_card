@@ -19,7 +19,6 @@ class _QrState extends State<Qr> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Vx.blue500,
         leadingWidth: 10,
         title: "Scan QR code".text.semiBold.size(20).white.make(),
       ),

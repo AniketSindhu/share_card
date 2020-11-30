@@ -4,21 +4,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Notifications extends StatefulWidget {
+class History extends StatefulWidget {
   @override
-  _NotificationsState createState() => _NotificationsState();
+  _HistoryState createState() => _HistoryState();
 }
 
-class _NotificationsState extends State<Notifications> {
+class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: "Notifications".text.white.make(),
+          title: "History".text.white.make(),
           centerTitle: true,
         ),
         body: FutureBuilder(
-          future: getNotifications(),
+          future: getHistory(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return CircularProgressIndicator().centered();
@@ -31,7 +31,7 @@ class _NotificationsState extends State<Notifications> {
                     height: (context.percentHeight * 35),
                   ).centered(),
                   (20).heightBox,
-                  "No notifications".text.semiBold.size(18).makeCentered()
+                  "No History".text.semiBold.size(18).makeCentered()
                 ],
               );
             } else {
@@ -44,7 +44,7 @@ class _NotificationsState extends State<Notifications> {
                       height: (context.percentHeight * 35),
                     ).centered(),
                     (20).heightBox,
-                    "No notfications".text.semiBold.size(18).makeCentered()
+                    "No History".text.semiBold.size(18).makeCentered()
                   ],
                 );
               }
@@ -60,7 +60,7 @@ class _NotificationsState extends State<Notifications> {
                             .medium
                             .make(),
                         leading: Icon(
-                          Icons.notification_important,
+                          Icons.history,
                           color: Colors.blue[400],
                           size: 30,
                         ),

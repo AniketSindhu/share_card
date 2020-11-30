@@ -4,6 +4,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:share_card/pages/homepage.dart';
 import 'package:share_card/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:theme_provider/theme_provider.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 Future<void> main() async {
@@ -55,19 +56,32 @@ class App extends StatelessWidget {
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return GetMaterialApp(
-            title: 'Share card',
-            debugShowCheckedModeBanner: false,
-            routes: {
-              'login':(context)=>Login(),
-              'home':(context)=>HomePage()
-            },
-            themeMode: ThemeMode.dark,
-            darkTheme: ThemeData(brightness: Brightness.dark),
-            theme: ThemeData(            
-              primarySwatch: Colors.blue,
+          return ThemeProvider(
+            loadThemeOnInit: true,
+            themes: [
+              AppTheme(id: 'light_theme', data: ThemeData.light(),description: 'light Theme'),
+              AppTheme(id: 'dark_theme', data: ThemeData.dark(),description: 'dark Theme'),
+              AppTheme(id: 'red', data: ThemeData(primarySwatch: Colors.red),description: 'red Theme'),
+              AppTheme(id: 'pink', data: ThemeData(primarySwatch: Colors.pink),description: 'pink Theme'),
+              AppTheme(id: 'purple', data: ThemeData(primarySwatch: Colors.purple),description: 'purple Theme'),
+              AppTheme(id: 'orange', data: ThemeData(primarySwatch: Colors.orange),description: 'orange Theme'),
+              AppTheme(id: 'green', data: ThemeData(primarySwatch: Colors.green),description: 'green Theme'),
+            ],
+            saveThemesOnChange: true,
+            child: ThemeConsumer(
+              child: Builder(
+                builder:(themeContext)=> GetMaterialApp(
+                  theme: ThemeProvider.themeOf(themeContext).data,
+                  title: 'Share card',
+                  debugShowCheckedModeBanner: false,
+                  routes: {
+                    'login':(context)=>Login(),
+                    'home':(context)=>HomePage()
+                  },
+                  home: Login(),
+                ),
+              ),
             ),
-            home: Login(),
           );
         }
         // Otherwise, show something whilst waiting for initialization to complete
@@ -106,19 +120,32 @@ class App1 extends StatelessWidget {
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return GetMaterialApp(
-            title: 'Share card',
-            debugShowCheckedModeBanner: false,
-            routes: {
-              'login':(context)=>Login(),
-              'home':(context)=>HomePage()
-            },
-/*             themeMode: ThemeMode.dark,
-            darkTheme: ThemeData.from(colorScheme: ColorScheme.dark()), */
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
+          return ThemeProvider(
+            saveThemesOnChange: true,
+            loadThemeOnInit: true,
+            themes: [
+              AppTheme(id: 'light_theme', data: ThemeData.light(),description: 'light Theme'),
+              AppTheme(id: 'dark_theme', data: ThemeData.dark(),description: 'dark Theme'),
+              AppTheme(id: 'red', data: ThemeData(primarySwatch: Colors.red),description: 'red Theme'),
+              AppTheme(id: 'pink', data: ThemeData(primarySwatch: Colors.pink),description: 'pink Theme'),
+              AppTheme(id: 'purple', data: ThemeData(primarySwatch: Colors.purple),description: 'purple Theme'),
+              AppTheme(id: 'orange', data: ThemeData(primarySwatch: Colors.orange),description: 'orange Theme'),
+              AppTheme(id: 'green', data: ThemeData(primarySwatch: Colors.green),description: 'green Theme'),
+            ],
+            child: ThemeConsumer(
+              child: Builder(
+                builder:(themeContext)=> GetMaterialApp(
+                  theme: ThemeProvider.themeOf(themeContext).data,
+                  title: 'Share card',
+                  debugShowCheckedModeBanner: false,
+                  routes: {
+                    'login':(context)=>Login(),
+                    'home':(context)=>HomePage()
+                  },
+                  home: HomePage(),
+                ),
+              ),
             ),
-            home: HomePage(),
           );
         }
         // Otherwise, show something whilst waiting for initialization to complete

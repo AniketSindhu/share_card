@@ -30,7 +30,6 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Vx.blue500,
           leadingWidth: 10,
           title: "CHAT".text.semiBold.size(20).white.make(),
         ),

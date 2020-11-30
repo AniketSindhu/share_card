@@ -40,10 +40,8 @@ class _CardListState extends State<CardList> {
             return Create();
           }));
         },
-        backgroundColor: Colors.blue,
       ),
       appBar: AppBar(
-        backgroundColor: Vx.blue500,
         leadingWidth: 10,
         title: "HOME".text.semiBold.size(20).white.make(),
         actions: [

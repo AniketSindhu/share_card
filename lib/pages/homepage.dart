@@ -4,6 +4,7 @@ import 'package:motion_tab_bar/MotionTabController.dart';
 import 'package:motion_tab_bar/motiontabbar.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/model/UserModel.dart';
+import 'package:share_card/model/optionsModel.dart';
 import 'package:share_card/pages/cardListPage.dart';
 import 'package:share_card/pages/chat.dart';
 import 'package:share_card/pages/create.dart';
@@ -90,7 +91,48 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         tabSelectedColor: Colors.blue,
         onTabItemSelected: (val) {
           setState(() {
-            index = val;
+            if(val<3)
+              index = val;
+            else {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                enableDrag: true,
+                shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+                backgroundColor: Vx.white,
+                builder: (BuildContext bc){
+                  return Container(
+                    padding: EdgeInsets.only(
+                      bottom: 10,
+                      left: 10,
+                      top: 10,
+                      right: 10
+                    ),
+                    child: GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap:true,
+                      crossAxisCount: 4,
+                      children: List.generate(optionList.length, (index) {
+                        return InkWell(
+                          onTap: optionList[index].onTap,
+                          child: VxBox(
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              child: VStack([
+                                optionList[index].icon.centered(),
+                                2.heightBox,
+                                optionList[index].name.text.black.size(14).make()
+                              ],crossAlignment: CrossAxisAlignment.center,).p4(),
+                            ),
+                          ).shadowXl.roundedFull.make().p12(),
+                        );
+                      }),
+                    )
+                  );
+                }
+              );
+            }
           });
         },
         icons: [
