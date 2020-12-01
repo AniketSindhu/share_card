@@ -13,6 +13,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   UserModel user;
   CardModel card;
+  List items;
   getUser1() async{
     card = await getCurrentUserCard();
     user = await getUser();
@@ -22,6 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
     locationController = TextEditingController(text:card.location);
     webController = TextEditingController(text:card.website);
     positionController = TextEditingController(text:card.position);
+    items = await getSpecializations();
     setState(() {
     });
   }
@@ -78,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
             )
           ],
           ),      
-        body: user!=null||card!=null?VStack([
+        body: user!=null||card!=null||items!=null?VStack([
           10.heightBox,
           CircleAvatar(
             backgroundImage:NetworkImage(card.image,),
@@ -252,14 +254,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              items: [
-                DropdownMenuItem(
-                    child: "Android Developer".text.make(),
-                    value: "Android Developer"),
-                DropdownMenuItem(
-                    child: "Website Developer".text.make(),
-                    value: "Website Developer"),
-              ]).h(60),
+              items: items.map((e){
+                return DropdownMenuItem(
+                  child:Text(e),
+                  value:e
+                );
+              }).toList()).h(60),
           15.heightBox,
         ]).p12().scrollVertical():Column(
           children: [

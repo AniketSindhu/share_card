@@ -390,6 +390,12 @@ Future<bool> getPremium() async{
   }
 }
 
+Future<List> getSpecializations() async{
+  final x = await FirebaseFirestore.instance.collection("specializations").doc('values').get();
+
+  return x.data()['val'];
+}
+
 void logout() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setBool('login', false);

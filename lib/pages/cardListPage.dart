@@ -1,5 +1,8 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:share_card/cardDesigns.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/model/UserModel.dart';
@@ -100,15 +103,13 @@ class _CardListState extends State<CardList> {
           )
         ).p12().w(double.infinity),
         !user.cardCreated?
-        Expanded(
-          child:Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset("assets/home.jpg",height: (context.percentHeight*55),).centered(),
-              (20).heightBox,
-              "No card here!".text.semiBold.size(18).makeCentered()
-            ],
-          )
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/home.jpg",height: (context.percentHeight*55),).centered(),
+            (20).heightBox,
+            "No card here!".text.semiBold.size(18).makeCentered()
+          ],
         ):search.text.trim().length==0?
           VStack([
             10.heightBox,
@@ -145,7 +146,49 @@ class _CardListState extends State<CardList> {
                               CardModel card1 = CardModel.fromDocument(snapshot.data.documents[index]);
                               return Padding(
                                 padding: EdgeInsets.all(10),
-                                child:cardDesigns(card1, context));
+                                child:GestureDetector(
+                                  onTap: (){
+                                    Get.dialog(
+                                     Dialog(
+                                       child: VStack([
+                                         "Add to Contacts".text.bold.black.size(22).makeCentered(),
+                                         15.heightBox,
+                                         "Do you want to add this to your contacts?".text.size(18).make(),
+                                         10.heightBox,
+                                         FlatButton(
+                                           child: "Add".text.white.size(20).make(),
+                                           onPressed: ()async{
+                                             if (await Permission.contacts.request().isGranted) {
+                                               await ContactsService.addContact(
+                                                 Contact(
+                                                   displayName: card1.name,
+                                                   givenName: card1.name,
+                                                   company: card1.company,
+                                                   jobTitle: card1.position,
+                                                   emails: [Item(label: card1.email,value: card1.name)],
+                                                   phones: [Item(label: card1.mobile,value: card1.mobile)],
+                                                   androidAccountType: AndroidAccountType.other,
+                                                   androidAccountName: card1.name
+                                                 )
+                                               ); 
+                                               context.showToast(
+                                               msg: 'Contact added',
+                                               bgColor: Vx.green500,
+                                               textColor: Colors.white,
+                                               position: VxToastPosition.top,
+                                               pdHorizontal: 20,
+                                               showTime: 3500,
+                                               pdVertical: 10); 
+                                             }
+                                           },
+                                           color: Colors.blue,
+                                         )
+                                       ],crossAlignment: CrossAxisAlignment.center,).p16().h24(context),
+                                     )
+                                    );
+                                  },
+                                  child:cardDesigns(card1, context))
+                                );
                             }
                           ),
                         ],
@@ -186,7 +229,50 @@ class _CardListState extends State<CardList> {
                                   CardModel card1 = CardModel.fromDocument(snapshot.data);
                                   return Padding(
                                     padding: EdgeInsets.all(10),
-                                    child:cardDesigns(card1, context)
+                                    child:
+                                      GestureDetector(
+                                        child:cardDesigns(card1, context),
+                                        onTap: (){
+                                          Get.dialog(
+                                            Dialog(
+                                              child: VStack([
+                                                "Add to Contacts".text.bold.black.size(22).makeCentered(),
+                                                15.heightBox,
+                                                "Do you want to add this to your contacts?".text.size(18).make(),
+                                                10.heightBox,
+                                                FlatButton(
+                                                  child: "Add".text.white.size(20).make(),
+                                                  onPressed: ()async{
+                                                    if (await Permission.contacts.request().isGranted) {
+                                                      await ContactsService.addContact(
+                                                        Contact(
+                                                          displayName: card1.name,
+                                                          givenName: card1.name,
+                                                          company: card1.company,
+                                                          jobTitle: card1.position,
+                                                          emails: [Item(label: card1.email,value: card1.name)],
+                                                          phones: [Item(label: card1.mobile,value: card1.mobile)],
+                                                          androidAccountType: AndroidAccountType.other,
+                                                          androidAccountName: card1.name
+                                                        )
+                                                      ); 
+                                                      context.showToast(
+                                                      msg: 'Contact added',
+                                                      bgColor: Vx.green500,
+                                                      textColor: Colors.white,
+                                                      position: VxToastPosition.top,
+                                                      pdHorizontal: 20,
+                                                      showTime: 3500,
+                                                      pdVertical: 10); 
+                                                    }
+                                                  },
+                                                  color: Colors.blue,
+                                                )
+                                              ],crossAlignment: CrossAxisAlignment.center,).p16().h24(context),
+                                            )
+                                          );
+                                        },
+                                      )
                                   );
                                 }
                               },
