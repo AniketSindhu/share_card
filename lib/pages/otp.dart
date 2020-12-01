@@ -22,7 +22,7 @@ class _OTPState extends State<OTP> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:VStack([
-        Expanded(child: SvgPicture.asset("assets/otp.svg",height: context.percentHeight*30).centered()),
+        Expanded(child: Image.asset("assets/otp.jpg",height: context.percentHeight*50).centered()),
         "Verfication".text.semiBold.size(25).makeCentered(),
         10.heightBox,
         "OTP Verification".text.normal.size(18).make(),

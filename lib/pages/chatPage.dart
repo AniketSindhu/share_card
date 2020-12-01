@@ -41,20 +41,8 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
       centerTitle:true,
-      flexibleSpace: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-                colors: <Color>[
-                Colors.blue[300],
-                Colors.blue[500],
-            ])          
-         ),        
-        ), 
         title: Text(widget.toUser,style:TextStyle(color: Colors.white,fontSize:25,fontWeight: FontWeight.w600),),
       ),
       body: SafeArea(
@@ -175,12 +163,12 @@ class _MessageState extends State<Message> {
           bottomRight: Radius.circular(23)),
             gradient: LinearGradient(
               colors: widget.sendByMe ? [
-                const Color(0xffFF3798),
-                const Color(0xffFF9E50),
+                Colors.blue[400],
+                Colors.blue[600],
               ]
                   : [
-                Colors.deepPurple,
-                Colors.teal
+                Colors.blue[400],
+                Colors.blue[600],
               ],
             )
         ),

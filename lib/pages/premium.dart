@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:get/get.dart';
 
 class Premium extends StatefulWidget {
   @override
@@ -26,27 +27,41 @@ class _PremiumState extends State<Premium> {
         20.heightBox,
         RaisedButton(
           onPressed: ()async{
-            bool result = await getPremium();
-            if(result){
-              context.showToast(
-                  msg: 'You are premium member now',
-                  showTime: 4500,
-                  bgColor: Vx.green500,
-                  textColor: Colors.white,
-                  position: VxToastPosition.top,
-                  pdHorizontal: 20,
-                  pdVertical: 10);
-            }
-            else {
-              context.showToast(
-                  msg: 'You are already premium member',
-                  showTime: 4500,
-                  bgColor: Vx.red500,
-                  textColor: Colors.white,
-                  position: VxToastPosition.top,
-                  pdHorizontal: 20,
-                  pdVertical: 10);
-            }
+            Get.dialog(Dialog(
+              child: Column(children: [
+                "Upgrade to premium".text.size(22).bold.makeCentered(),
+                20.heightBox,
+                "You need to pay 10\$ for the upgrade".text.italic.size(18).make().centered(),
+                20.heightBox,
+                FlatButton(
+                  child:"Buy Premium".text.white.medium.size(18).make(),
+                  color: Colors.red,
+                  onPressed: ()async{
+                    bool result = await getPremium();
+                    if(result){
+                      context.showToast(
+                          msg: 'You are premium member now',
+                          showTime: 4500,
+                          bgColor: Vx.green500,
+                          textColor: Colors.white,
+                          position: VxToastPosition.top,
+                          pdHorizontal: 20,
+                          pdVertical: 10);
+                      Navigator.pop(context);
+                    }
+                    else {
+                      context.showToast(
+                          msg: 'You are already premium member',
+                          showTime: 4500,
+                          bgColor: Vx.red500,
+                          textColor: Colors.white,
+                          position: VxToastPosition.top,
+                          pdHorizontal: 20,
+                          pdVertical: 10);
+                    }
+                  },
+                )
+              ],mainAxisAlignment: MainAxisAlignment.center,).p12().h32(context),));            
           },
           child: "Get Premium".text.white.size(20).make(),
           color: Colors.red, 

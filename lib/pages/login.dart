@@ -24,9 +24,7 @@ class _LoginState extends State<Login> {
         (context.percentHeight * 6).heightBox,
         "Sign Up".text.bold.size(35).makeCentered(),
         25.heightBox,
-        SvgPicture.asset("assets/login_svg.svg",
-                height: context.percentHeight * 40)
-            .centered(),
+        Image.asset('assets/login.jpg',height: context.percentHeight*40,),
         30.heightBox,
         "Sign up with Phone number".text.semiBold.size(20).make(),
         8.heightBox,
@@ -43,7 +41,7 @@ class _LoginState extends State<Login> {
               borderSide: BorderSide(),
             ),
           ),
-          initialCountryCode: 'IN',
+          initialCountryCode: 'SG',
           onChanged: (phone1) {
             setState(() {
               phone = phone1.completeNumber;

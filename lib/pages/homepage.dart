@@ -116,16 +116,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       children: List.generate(optionList.length, (index) {
                         return InkWell(
                           onTap: optionList[index].onTap,
-                          child: VxBox(
-                            child: CircleAvatar(
-                              backgroundColor: Colors.white,
-                              child: VStack([
-                                optionList[index].icon.centered(),
-                                2.heightBox,
-                                optionList[index].name.text.black.size(14).make()
-                              ],crossAlignment: CrossAxisAlignment.center,).p4(),
-                            ),
-                          ).shadowXl.roundedFull.make().p12(),
+                          child: VStack([
+                            optionList[index].icon.centered(),
+                            2.heightBox,
+                            optionList[index].name.text.black.size(14).make()
+                          ],crossAlignment: CrossAxisAlignment.center,).p4(),
                         );
                       }),
                     )

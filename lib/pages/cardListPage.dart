@@ -104,7 +104,7 @@ class _CardListState extends State<CardList> {
           child:Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset("assets/void.svg",height: (context.percentHeight*35),).centered(),
+              Image.asset("assets/home.jpg",height: (context.percentHeight*55),).centered(),
               (20).heightBox,
               "No card here!".text.semiBold.size(18).makeCentered()
             ],
@@ -270,7 +270,7 @@ class _CardListState extends State<CardList> {
       :Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset("assets/void.svg",height: (context.percentHeight*35),).centered(),
+          Image.asset("assets/home.jpg",height: (context.percentHeight*55),).centered(),
           (20).heightBox,
           "No card here!".text.semiBold.size(18).makeCentered()
         ],

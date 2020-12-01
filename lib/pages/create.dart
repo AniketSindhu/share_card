@@ -24,7 +24,7 @@ class _CreateState extends State<Create> {
       ),
       body: VStack([
         Expanded(
-          child:SvgPicture.asset("assets/create.svg",height: (context.percentHeight*25),).centered()
+          child:Image.asset("assets/create.jpg",height: (context.percentHeight*50),).centered()
         ),
         "Create Card for ?".text.size(26).semiBold.makeCentered(),
         15.heightBox,

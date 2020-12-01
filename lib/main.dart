@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:share_card/pages/homepage.dart';
 import 'package:share_card/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -66,6 +67,9 @@ class App extends StatelessWidget {
               AppTheme(id: 'purple', data: ThemeData(primarySwatch: Colors.purple),description: 'purple Theme'),
               AppTheme(id: 'orange', data: ThemeData(primarySwatch: Colors.orange),description: 'orange Theme'),
               AppTheme(id: 'green', data: ThemeData(primarySwatch: Colors.green),description: 'green Theme'),
+              AppTheme(id: 'solway_font', data: ThemeData(textTheme: GoogleFonts.solwayTextTheme(Theme.of(context).textTheme,)),description: 'solway font'),
+              AppTheme(id: 'abeezee_font', data: ThemeData(textTheme: GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme,)),description: 'aBeeZee font'),
+              AppTheme(id: 'tenorsans_font', data: ThemeData(textTheme: GoogleFonts.tenorSansTextTheme(Theme.of(context).textTheme,)),description: 'tenorSans font'),
             ],
             saveThemesOnChange: true,
             child: ThemeConsumer(
@@ -131,6 +135,9 @@ class App1 extends StatelessWidget {
               AppTheme(id: 'purple', data: ThemeData(primarySwatch: Colors.purple),description: 'purple Theme'),
               AppTheme(id: 'orange', data: ThemeData(primarySwatch: Colors.orange),description: 'orange Theme'),
               AppTheme(id: 'green', data: ThemeData(primarySwatch: Colors.green),description: 'green Theme'),
+              AppTheme(id: 'solway_font', data: ThemeData(textTheme: GoogleFonts.solwayTextTheme(Theme.of(context).textTheme,)),description: 'solway font'),
+              AppTheme(id: 'abeezee_font', data: ThemeData(textTheme: GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme,)),description: 'aBeeZee font'),
+              AppTheme(id: 'tenorsans_font', data: ThemeData(textTheme: GoogleFonts.tenorSansTextTheme(Theme.of(context).textTheme,)),description: 'tenorSans font'),
             ],
             child: ThemeConsumer(
               child: Builder(

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/pages/addCredits.dart';
 import 'package:get/get.dart';
+import 'package:share_card/pages/add_on.dart';
 import 'package:share_card/pages/help.dart';
 import 'package:share_card/pages/history.dart';
 import 'package:share_card/pages/login.dart';
 import 'package:share_card/pages/nearby.dart';
 import 'package:share_card/pages/premium.dart';
 import 'package:share_card/pages/profile.dart';
+import 'package:share_card/pages/settings.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:flutter_share/flutter_share.dart';
@@ -22,7 +24,9 @@ List<OptionsModel> optionList=[
   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Credits",onTap: (){
     Get.to(AddCredits());
   }),
-  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Add On",onTap: (){}),
+  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Add On",onTap: (){
+    Get.to(AddOn());
+  }),
   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Profile",onTap: (){
     Get.to(ProfilePage());
   }),
@@ -79,12 +83,14 @@ List<OptionsModel> optionList=[
   }),
   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Share",onTap: () async{
     await FlutterShare.share(
-      title: 'NameCARD',
+      title: 'Visting card',
       text: 'Download this visiting card app',
       linkUrl: 'https://flutter.dev/',
     );
   }),
-  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Settings",onTap: (){}),
+  OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Settings",onTap: (){
+    Get.to(Settings());
+  }),
 /*   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Signature",onTap: (){}), */
   OptionsModel(icon:Icon(Icons.logout,color:Colors.blue[700],size:20),name:"Logout",onTap: (){
     logout();

@@ -30,7 +30,7 @@ class _NearbyState extends State<Nearby> {
     return Scaffold(
       appBar: AppBar(title:"Nearby Users".text.make(),centerTitle: true,),
       body: user!=null||card!=null?FutureBuilder(
-        future: FirebaseFirestore.instance.collection('users').where('country',isEqualTo:user.country).get(),
+        future: FirebaseFirestore.instance.collection('users').where('country',isEqualTo:user.country).where('cardCreated',isEqualTo:true).get(),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
@@ -46,6 +46,7 @@ class _NearbyState extends State<Nearby> {
                   ],
                 );
             }
+            else{
               return ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -96,6 +97,7 @@ class _NearbyState extends State<Nearby> {
                   }
                 }
               );
+            }
           }
           else{
             return CircularProgressIndicator();
