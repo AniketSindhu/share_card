@@ -279,17 +279,6 @@ class _CreateCardOthersState extends State<CreateCardOthers> {
                 15.heightBox,
                 FlatButton(
                   onPressed: () async{
-                    if(specialization == null|| _image==null){
-                        context.showToast(
-                            msg: 'Fill all info',
-                            showTime: 4500,
-                            bgColor: Vx.red500,
-                            textColor: Colors.white,
-                            position: VxToastPosition.top,
-                            pdHorizontal: 20,
-                            pdVertical: 10);
-                    }
-                    else{
                       final close = context.showLoading(msg: 'Loading');
                       Future.delayed(Duration(seconds: 3), close);
                       await createCardOtherfunc(
@@ -304,7 +293,6 @@ class _CreateCardOthersState extends State<CreateCardOthers> {
                           phoneNumberController.text);
 
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectTemplateOther(phone: phoneNumberController.text,)));
-                    }
                   },
                   child: "Save info".text.size(22).semiBold.white.make().py12(),
                   color: Colors.blue,

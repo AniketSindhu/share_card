@@ -8,7 +8,12 @@ cardDesigns(CardModel cardModel, BuildContext context) {
     return VxBox(
             child: HStack([
       VStack([
-        CircleAvatar(
+        cardModel.image==null?PrettyQr(
+              typeNumber: 3,
+              size: 65,
+              data: cardModel.qrCode,
+              roundEdges: true
+            ).objectCenterLeft().expand():CircleAvatar(
           backgroundImage: NetworkImage(cardModel.image),
           radius: 40,
         ).objectCenterLeft().expand(),
@@ -26,7 +31,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
           HStack([
             Icon(Icons.business_center, color: Colors.pinkAccent),
             3.widthBox,
-            cardModel.position.text.size(16).medium.make().expand()
+            cardModel.industry.text.size(16).medium.make().expand()
           ]),
           10.heightBox,
           HStack([
@@ -38,7 +43,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
           HStack([
             Icon(Icons.location_history, color: Colors.pinkAccent),
             3.widthBox,
-            '${cardModel.address1}'.text.size(16).medium.make().expand()
+            '${cardModel.address1}, ${cardModel.address2}, ${cardModel.postCode}'.text.size(16).medium.make().expand()
           ]),
           10.heightBox,
           HStack([
@@ -64,7 +69,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
     ]).p20())
         .pink200
         .width(context.percentWidth * 95)
-        .height(250)
+        .height(280)
         .shadowMd
         .rounded
         .makeCentered();
@@ -74,7 +79,12 @@ cardDesigns(CardModel cardModel, BuildContext context) {
     return VxBox(
             child: VStack([
       HStack([
-        CircleAvatar(
+        cardModel.image==null?PrettyQr(
+              typeNumber: 3,
+              size: 65,
+              data: cardModel.qrCode,
+              roundEdges: true).objectCenterLeft()
+            :CircleAvatar(
           backgroundImage: NetworkImage(cardModel.image),
           radius: 50,
         ).objectCenterLeft(),
@@ -85,7 +95,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
             2.heightBox,
             cardModel.specialization != null
                 ? cardModel.specialization.text.size(16).semiBold.make()
-                : Container(),
+                : cardModel.industry.text.size(16).semiBold.make(),
             2.heightBox,
             cardModel.position.text.size(16).semiBold.make(),
             3.heightBox,
@@ -103,7 +113,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
             4.heightBox,
             cardModel.mobile.text.white.size(16).make(),
             4.heightBox,
-            cardModel.address1.text.white.size(16).make(),
+            '${cardModel.address1}, ${cardModel.address2}, ${cardModel.postCode}'.text.white.size(16).make(),
           ], alignment: MainAxisAlignment.center, axisSize: MainAxisSize.max)
               .expand(),
         ],
@@ -111,11 +121,11 @@ cardDesigns(CardModel cardModel, BuildContext context) {
       ).p16())
           .black
           .make()
-          .h(100)
+          .h(130)
     ]))
         .gray400
         .width(context.percentWidth * 95)
-        .height(250)
+        .height(280)
         .shadowMd
         .rounded
         .makeCentered();
@@ -170,12 +180,14 @@ cardDesigns(CardModel cardModel, BuildContext context) {
       child: VStack([
         cardModel.company.text.size(25).capitalize.yellow400.medium.make(),
         3.heightBox,
-        cardModel.address1.text.size(18).white.normal.make(),
-        15.heightBox,
+        '${cardModel.address1}, ${cardModel.address2}, ${cardModel.postCode}, ${cardModel.country}'.text.size(18).white.normal.make(),
+        10.heightBox,
         '${cardModel.firstName} ${cardModel.secondName}'.text.size(20).yellow400.medium.make(),
         3.heightBox,
         cardModel.specialization.text.size(18).white.normal.make(),
-        20.heightBox,
+        3.heightBox,
+        cardModel.industry.text.size(18).white.normal.make(),
+        10.heightBox,
         HStack([
           VxBox().height(15).width(15).pink600.make(),
           10.widthBox,
@@ -190,7 +202,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
     )
         .black
         .width(context.percentWidth * 95)
-        .height(250)
+        .height(280)
         .shadowMd
         .rounded
         .makeCentered();
@@ -206,7 +218,9 @@ cardDesigns(CardModel cardModel, BuildContext context) {
                 '${cardModel.firstName} ${cardModel.secondName}'.text.size(20).red800.medium.make(),
                 3.heightBox,
                 cardModel.position.text.size(20).red800.medium.make(),
-                20.heightBox,
+                3.heightBox,
+                cardModel.industry.text.size(16).red800.medium.make(),
+                10.heightBox,
                 HStack([
                   Icon(Icons.mobile_friendly,color: Vx.red800,size: 30,),
                   10.widthBox,
@@ -224,7 +238,12 @@ cardDesigns(CardModel cardModel, BuildContext context) {
                 ]),
               ],crossAxisAlignment: CrossAxisAlignment.start,
             ),
-            VxBox(
+            cardModel.image==null?PrettyQr(
+              typeNumber: 3,
+              size: 60,
+              data: cardModel.qrCode,
+              roundEdges: true
+            ):VxBox(
               child: CircleAvatar(
                 backgroundImage: NetworkImage(cardModel.image),
                 radius: 30,
@@ -233,17 +252,13 @@ cardDesigns(CardModel cardModel, BuildContext context) {
           ],mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
         ).px20().py16(),
         VxBox(
-          child: HStack([
-            Icon(Icons.location_city,color: Vx.white,size: 30,),
-            10.widthBox,
-            cardModel.address1.text.size(18).white.normal.make(),
-          ]).px20(),
-        ).width(double.infinity).height(75).red800.make().expand()
+          child: '${cardModel.address1}, ${cardModel.address2}, ${cardModel.postCode}, ${cardModel.country}'.text.size(18).white.normal.make().p20()
+        ).width(double.infinity).red800.make().expand()
       ])
     )
         .color(Colors.amber[100])
         .width(context.percentWidth * 95)
-        .height(250)
+        .height(280)
         .shadowMd
         .rounded
         .makeCentered();
@@ -257,16 +272,16 @@ cardDesigns(CardModel cardModel, BuildContext context) {
           '${cardModel.firstName} ${cardModel.secondName}'.text.size(25).white.medium.make(),
           3.heightBox,
           cardModel.position.text.size(20).white.make(),
-          cardModel.company.text.size(20).white.medium.make().objectBottomCenter().expand(),
-        ],alignment: MainAxisAlignment.center,axisSize: MainAxisSize.max,),
-        VStack([
-          10.heightBox,
-          cardModel.address1.text.size(20).white.medium.make(),
-          35.heightBox,
+          3.heightBox,
+          cardModel.industry.text.size(16).white.make(),
+          3.heightBox,
           cardModel.email.text.size(14).white.make(),
           2.heightBox,
           cardModel.mobile.text.size(18).white.medium.make(),
-          cardModel.website.text.size(20).white.medium.make().objectBottomCenter().expand(),
+          cardModel.company.text.size(20).white.medium.make().objectBottomCenter().expand(),
+        ],alignment: MainAxisAlignment.center,axisSize: MainAxisSize.max,),
+        VStack([
+          cardModel.website.text.size(18).white.medium.make().objectBottomCenter().expand(),
         ],alignment: MainAxisAlignment.start,axisSize: MainAxisSize.max,),    
       ],alignment: MainAxisAlignment.spaceBetween,).p20()
     )
@@ -334,6 +349,12 @@ cardDesigns(CardModel cardModel, BuildContext context) {
         Column(
           children: [
             HStack([
+              Icon(Icons.design_services,color: Vx.black,size: 25,),
+              10.widthBox,
+              cardModel.industry.text.size(14).black.normal.make(),
+            ]),
+            2.heightBox,
+            HStack([
               Icon(Icons.mobile_friendly,color: Vx.black,size: 25,),
               10.widthBox,
               cardModel.mobile.text.size(14).black.normal.make(),
@@ -344,6 +365,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
               10.widthBox,
               cardModel.email.text.size(14).black.normal.make(),
             ]),
+            2.heightBox,
             HStack([
               Icon(Icons.web,color: Vx.black,size: 25,),
               10.widthBox,
@@ -357,16 +379,16 @@ cardDesigns(CardModel cardModel, BuildContext context) {
           '${cardModel.firstName} ${cardModel.secondName}'.text.size(22).blue700.medium.make(),
           2.heightBox,
           cardModel.specialization.text.size(15).blue700.medium.make(),
-          20.heightBox,
+          10.heightBox,
           cardModel.company.text.size(18).black.medium.make(),
           4.heightBox,
-          cardModel.address1.text.size(18).black.medium.make(),
+          '${cardModel.address1}, ${cardModel.address2}, ${cardModel.postCode}, ${cardModel.country}'.text.size(15).black.make().pOnly(right:8),
         ],crossAlignment: CrossAxisAlignment.start,).expand()
       ],crossAlignment: CrossAxisAlignment.center,).py20()
     )
       .color(Vx.gray400)
       .width(context.percentWidth * 95)
-      .height(250)
+      .height(280)
       .shadowMd
       .rounded
       .makeCentered();
@@ -376,7 +398,7 @@ cardDesigns(CardModel cardModel, BuildContext context) {
     return VxBox(
       child: HStack([
         VxBox(
-          child: CircleAvatar(
+          child: cardModel.image==null?Container():CircleAvatar(
             backgroundImage: NetworkImage(cardModel.image),
             radius: 45,
           ),
@@ -391,11 +413,11 @@ cardDesigns(CardModel cardModel, BuildContext context) {
           Column(
             children: [
               cardModel.company.text.size(20).gray800.make(),
-              cardModel.address1.text.size(20).gray800.make(),
             ],mainAxisAlignment: MainAxisAlignment.end,crossAxisAlignment: CrossAxisAlignment.start
           ).expand(),
+          '${cardModel.address1}, ${cardModel.address2}, ${cardModel.postCode}, ${cardModel.country}'.text.size(16).gray800.make().w(300),
         ],alignment: MainAxisAlignment.start,)
-      ],crossAlignment: CrossAxisAlignment.start,).p24()
+      ],crossAlignment: CrossAxisAlignment.start,).p16()
     )
       .color(Colors.deepOrange[200])
       .width(context.percentWidth * 95)

@@ -35,7 +35,7 @@ class _SelectTemplateState extends State<SelectTemplate> {
       ),
       body: user != null || card != null
           ? ListView.builder(
-              itemCount: user.isPremium ? 5 : 2,
+              itemCount: user.isPremium ? 9 : 2,
               itemBuilder: (context, index) {
                 CardModel card1 = CardModel(
                   cardNumber: index + 1,
