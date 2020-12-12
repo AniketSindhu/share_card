@@ -161,14 +161,14 @@ class _CardListState extends State<CardList> {
                                              if (await Permission.contacts.request().isGranted) {
                                                await ContactsService.addContact(
                                                  Contact(
-                                                   displayName: card1.name,
-                                                   givenName: card1.name,
+                                                   displayName: card1.firstName+' '+card1.secondName,
+                                                   givenName: card1.firstName+' '+card1.secondName,
                                                    company: card1.company,
                                                    jobTitle: card1.position,
-                                                   emails: [Item(label: card1.email,value: card1.name)],
+                                                   emails: [Item(label: card1.email,value: card1.email)],
                                                    phones: [Item(label: card1.mobile,value: card1.mobile)],
                                                    androidAccountType: AndroidAccountType.other,
-                                                   androidAccountName: card1.name
+                                                   androidAccountName: card1.firstName+' '+card1.secondName
                                                  )
                                                ); 
                                                context.showToast(
@@ -246,14 +246,14 @@ class _CardListState extends State<CardList> {
                                                     if (await Permission.contacts.request().isGranted) {
                                                       await ContactsService.addContact(
                                                         Contact(
-                                                          displayName: card1.name,
-                                                          givenName: card1.name,
+                                                          displayName: card1.firstName+' '+card1.secondName,
+                                                          givenName: card1.firstName+' '+card1.secondName,
                                                           company: card1.company,
                                                           jobTitle: card1.position,
-                                                          emails: [Item(label: card1.email,value: card1.name)],
+                                                          emails: [Item(label: card1.email,value: card1.email)],
                                                           phones: [Item(label: card1.mobile,value: card1.mobile)],
                                                           androidAccountType: AndroidAccountType.other,
-                                                          androidAccountName: card1.name
+                                                          androidAccountName: card1.firstName+' '+card1.secondName
                                                         )
                                                       ); 
                                                       context.showToast(
@@ -304,13 +304,13 @@ class _CardListState extends State<CardList> {
                           return Column(
                             children: [
                               ListTile(
-                                title: card1.name.text.make(),
+                                title: "${card1.firstName} ${card1.secondName}".text.make(),
                                 subtitle: card1.specialization.text.make(),
                                 trailing: FlatButton(
                                   onPressed: ()async{
                                     final close= context.showLoading(msg:'Loading');
                                     Future.delayed(1.seconds,close);
-                                    bool result = await sayHi(user.mobile,card.name,card1);
+                                    bool result = await sayHi(user.mobile,card.firstName,card1);
                                     if(result){
                                       context.showToast(
                                         msg: 'Hi sent!',

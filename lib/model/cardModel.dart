@@ -1,10 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CardModel {
-  final String name;
+  final String firstName;
+  final String secondName;
   final String email;
   final String company;
-  final String location;
+  final String address1;
+  final String address2;
+  final String country;
+  final String postCode;
+  final String industry;
   final String website;
   final String position;
   final String specialization;
@@ -17,9 +22,14 @@ class CardModel {
       {this.company,
       this.email,
       this.image,
-      this.location,
+      this.address1,
+      this.address2,
+      this.country,
+      this.postCode,
+      this.industry,
       this.mobile,
-      this.name,
+      this.firstName,
+      this.secondName,
       this.position,
       this.specialization,
       this.website,
@@ -28,10 +38,15 @@ class CardModel {
 
   factory CardModel.fromDocument(DocumentSnapshot doc){
     return CardModel(
-      name: doc['name'],
+      firstName: doc['firstName'],
+      secondName: doc['secondName'],
+      industry: doc['industry'],
       email: doc['email'],
       company: doc['company'],
-      location: doc['location'],
+      address1: doc['address1'],
+      address2: doc['address2'],
+      country: doc['country'],
+      postCode: doc['postCode'],
       website: doc['website'],
       position: doc['position'],
       specialization: doc['specialization'],

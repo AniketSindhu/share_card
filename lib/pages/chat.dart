@@ -67,12 +67,12 @@ class _ChatState extends State<Chat> {
                                       MaterialPageRoute(
                                           builder: (context) => ChatPage(
                                               card.mobile,
-                                              snapshot.data.documents[index]
-                                                  .id,
+                                              snapshot.data.documents[index].id,
                                               snapshot.data.documents[index]
                                                   .data()['chatId']
                                                   .replaceAll("-", "")
-                                                  .replaceAll(card.name, ""))));
+                                                  .replaceAll(
+                                                      card.firstName, ""))));
                                 },
                                 leading: Icon(
                                   Icons.person,
@@ -80,7 +80,7 @@ class _ChatState extends State<Chat> {
                                   size: 35,
                                 ),
                                 title:
-                                    '${snapshot.data.documents[index].data()['chatId'].replaceAll("-", "").replaceAll(card.name, "")}'
+                                    '${snapshot.data.documents[index].data()['chatId'].replaceAll("-", "").replaceAll(card.firstName, "")}'
                                         .text
                                         .semiBold
                                         .size(18)

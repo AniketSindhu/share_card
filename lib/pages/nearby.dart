@@ -57,13 +57,13 @@ class _NearbyState extends State<Nearby> {
                       return Column(
                         children: [
                           ListTile(
-                            title: card1.name.text.make(),
+                            title: card1.firstName.text.make(),
                             subtitle: card1.specialization.text.make(),
                             trailing: FlatButton(
                               onPressed: ()async{
                                 final close= context.showLoading(msg:'Loading');
                                 Future.delayed(1.seconds,close);
-                                bool result = await sayHi(user.mobile,card.name,card1);
+                                bool result = await sayHi(user.mobile,card.firstName,card1);
                                 if(result){
                                   context.showToast(
                                     msg: 'Hi sent!',

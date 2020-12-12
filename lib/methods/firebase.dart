@@ -48,34 +48,60 @@ Future<UserModel> getUser() async {
   return UserModel.fromDocument(x.docs[0]);
 }
 
-createCard(String name, String email, String company, String location,
+createCard(String firstName,String secondName, String email, String company, String address1,String address2, String country, String postCode, String industry,
     String website, String position, String specialization, File image) async {
   UserModel user = await getUser();
   String iid = randomString(6);
-  String _uploadedFileURL;
-  String fileName = "Images/$iid";
-  Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
-  UploadTask uploadTask = firebaseStorageRef.putFile(image);
-  TaskSnapshot taskSnapshot = await uploadTask;
-  await firebaseStorageRef.getDownloadURL().then((fileURL) async {
-    _uploadedFileURL = fileURL;
-  });
-  await firebaseStorageRef.getDownloadURL().then((fileURL) async {
-    _uploadedFileURL = fileURL;
-  });
+  if(image!=null){
+    String _uploadedFileURL;
+    String fileName = "Images/$iid";
+    Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
+    UploadTask uploadTask = firebaseStorageRef.putFile(image);
+    TaskSnapshot taskSnapshot = await uploadTask;
+    await firebaseStorageRef.getDownloadURL().then((fileURL) async {
+      _uploadedFileURL = fileURL;
+    });
+    await firebaseStorageRef.getDownloadURL().then((fileURL) async {
+      _uploadedFileURL = fileURL;
+    });
 
-  FirebaseFirestore.instance.collection("users").doc(user.mobile).set({
-    'name': name,
-    'email': email,
-    'company': company,
-    'location': location,
-    'website': website,
-    'position': position,
-    'specialization': specialization,
-    'image': _uploadedFileURL,
-    'cardNumber': 1,
-    'cardCreated': true
-  }, SetOptions(merge: true));
+    FirebaseFirestore.instance.collection("users").doc(user.mobile).set({
+      'firstName': firstName,
+      'secondName': secondName,
+      'email': email,
+      'company': company,
+      'address1': address1,
+      'address2': address2,
+      'country' : country,
+      'postCode': postCode,
+      'industry':industry,
+      'website': website,
+      'position': position,
+      'specialization': specialization,
+      'image': _uploadedFileURL,
+      'cardNumber': 1,
+      'cardCreated': true
+    }, SetOptions(merge: true));
+  }
+  else{
+    FirebaseFirestore.instance.collection("users").doc(user.mobile).set({
+      'firstName': firstName,
+      'secondName': secondName,
+      'email': email,
+      'company': company,
+      'address1': address1,
+      'address2': address2,
+      'country' : country,
+      'postCode': postCode,
+      'industry':industry,
+      'website': website,
+      'position': position,
+      'specialization': specialization,
+      'image': null,
+      'cardNumber': 1,
+      'cardCreated': true
+    }, SetOptions(merge: true));
+  }
 
     await FirebaseFirestore.instance
         .collection('users')
@@ -135,7 +161,7 @@ Future<bool> receiveCard(CardModel card) async {
         .doc(x.docs[0].data()['phone'])
         .collection('notifications')
         .add({
-      'msg': "You received card from ${card.name}",
+      'msg': "You received card from ${card.firstName} ${card.secondName}",
       'time': DateTime.now(),
       'isRead': false
     });
@@ -145,7 +171,7 @@ Future<bool> receiveCard(CardModel card) async {
         .doc(x.docs[0].data()['phone'])
         .collection('history')
         .add({
-      'msg': "You received card from ${card.name}",
+      'msg': "You received card from ${card.firstName} ${card.secondName}}",
       'time': DateTime.now(),
     });
 
@@ -162,7 +188,7 @@ Future<bool> receiveCard(CardModel card) async {
         .doc(card.mobile)
         .collection('notifications')
         .add({
-      'msg': "You shared card with ${x.docs[0].data()['name']}",
+      'msg': "You shared card with ${x.docs[0].data()['firstName']}",
       'time': DateTime.now(),
       'isRead': false
     });
@@ -172,7 +198,7 @@ Future<bool> receiveCard(CardModel card) async {
         .doc(card.mobile)
         .collection('history')
         .add({
-      'msg': "You shared card with ${x.docs[0].data()['name']}",
+      'msg': "You shared card with ${x.docs[0].data()['firstName']}",
       'time': DateTime.now(),
     });
 
@@ -180,7 +206,7 @@ Future<bool> receiveCard(CardModel card) async {
         .collection('chats')
         .doc('${x.docs[0].data()['phone']}-${card.mobile}')
         .set({
-      'chatId': "${x.docs[0].data()['name']}-${card.name}",
+      'chatId': "${x.docs[0].data()['firstName']}-${card.firstName}",
       'users': [x.docs[0].data()['phone'], card.mobile]
     });
     return true;
@@ -200,7 +226,7 @@ Future<bool> receiveCard(CardModel card) async {
         .doc(x.docs[0].data()['phone'])
         .collection('notifications')
         .add({
-      'msg': "You received card from ${card.name}",
+      'msg': "You received card from ${card.firstName}",
       'time': DateTime.now(),
       'isRead': false
     });
@@ -210,7 +236,7 @@ Future<bool> receiveCard(CardModel card) async {
         .doc(x.docs[0].data()['phone'])
         .collection('history')
         .add({
-      'msg': "You received card from ${card.name}",
+      'msg': "You received card from ${card.firstName}",
       'time': DateTime.now(),
     });
 
@@ -227,7 +253,7 @@ Future<bool> receiveCard(CardModel card) async {
         .doc(card.mobile)
         .collection('notifications')
         .add({
-      'msg': "You shared card with ${x.docs[0].data()['name']}",
+      'msg': "You shared card with ${x.docs[0].data()['firstName']}",
       'time': DateTime.now(),
       'isRead': false
     });
@@ -237,7 +263,7 @@ Future<bool> receiveCard(CardModel card) async {
         .doc(card.mobile)
         .collection('history')
         .add({
-      'msg': "You shared card with ${x.docs[0].data()['name']}",
+      'msg': "You shared card with ${x.docs[0].data()['firstName']}",
       'time': DateTime.now(),
     });
 
@@ -245,7 +271,7 @@ Future<bool> receiveCard(CardModel card) async {
         .collection('chats')
         .doc('${x.docs[0].data()['phone']}-${card.mobile}')
         .set({
-      'chatId': "${x.docs[0].data()['name']}-${card.name}",
+      'chatId': "${x.docs[0].data()['firstName']}-${card.firstName}",
       'users': [x.docs[0].data()['phone'], card.mobile]
     });
     return true;
@@ -302,7 +328,7 @@ Future<bool> sayHi(String userMobile,String userName, CardModel card) async{
     }
     else{
       await FirebaseFirestore.instance.collection('chats').doc('$userMobile-${card.mobile}').set({
-        'chatId':'$userName-${card.name}',
+        'chatId':'$userName-${card.firstName}',
         'users':[userMobile,card.mobile]
       });
       await FirebaseFirestore.instance.collection('chats').doc('$userMobile-${card.mobile}').collection('msg').add({

@@ -17,10 +17,10 @@ class _ProfilePageState extends State<ProfilePage> {
   getUser1() async{
     card = await getCurrentUserCard();
     user = await getUser();
-    nameController = TextEditingController(text: card.name);
+    nameController = TextEditingController(text: card.firstName);
     emailController = TextEditingController(text:card.email);
     companyNameController = TextEditingController(text:card.company);
-    locationController = TextEditingController(text:card.location);
+    locationController = TextEditingController(text:card.address1);
     webController = TextEditingController(text:card.website);
     positionController = TextEditingController(text:card.position);
     items = await getSpecializations();
@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
             radius: 40,
           ).centered(),
           5.heightBox,
-          card.name.text.size(25).bold.makeCentered(),
+          card.firstName.text.size(25).bold.makeCentered(),
           5.heightBox,
           HStack([
             VStack([
