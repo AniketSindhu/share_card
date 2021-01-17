@@ -1,0 +1,11 @@
+{
+    "sign up": "Sign Up",
+    "sign_phone": "Sign up with Phone number",
+    "valid_country":"Please enter valid country and mobile number",
+    "phone": "Phone Number",
+    "loading":"Loading",
+    "code_detected":"Code Detected!",
+    "invalid_phone":"invalid phone",
+    "continue":"CONTINUE",
+    "t&c":"By login in you agree our terms and conditions"
+}

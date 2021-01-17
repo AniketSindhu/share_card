@@ -351,40 +351,69 @@ Future<bool> sayHi(String userMobile,String userName, CardModel card) async{
   }
 }
 
-Future<bool> createCardOtherfunc(String name, String email, String company, String location,String website, String position, String specialization, File image,String mobile) async{
+Future<bool> createCardOtherfunc(String firstName,String secondName, String email, String company,String website, String position, String specialization, File image,String mobile,String industry,String address1,String address2,String postCode, String country) async{
   
   String uid = await currentUid();
   final x = await FirebaseFirestore.instance
       .collection('users')
       .where("userd", isEqualTo: uid)
       .get();
-  String _uploadedFileURL;
-  String iid = randomString(6);
-  String fileName = "Images/$iid";
-  Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
-  UploadTask uploadTask = firebaseStorageRef.putFile(image);
-  TaskSnapshot taskSnapshot = await uploadTask;
-  await firebaseStorageRef.getDownloadURL().then((fileURL) async {
-    _uploadedFileURL = fileURL;
-  });
-  await firebaseStorageRef.getDownloadURL().then((fileURL) async {
-    _uploadedFileURL = fileURL;
-  });
-  final qr = randomAlphaNumeric(8);
-  FirebaseFirestore.instance.collection("users").doc(x.docs[0].data()['phone']).collection('createdCards').doc(mobile).set({
-    'name': name,
-    'email': email,
-    'company': company,
-    'location': location,
-    'website': website,
-    'position': position,
-    'specialization': specialization,
-    'image': _uploadedFileURL,
-    'cardNumber': 1,
-    'cardCreated': true,
-    'phone': mobile,
-    'qrCode':qr
-  });
+  if(image!=null){
+      String _uploadedFileURL;
+      String iid = randomString(6);
+      String fileName = "Images/$iid";
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
+      UploadTask uploadTask = firebaseStorageRef.putFile(image);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      await firebaseStorageRef.getDownloadURL().then((fileURL) async {
+        _uploadedFileURL = fileURL;
+      });
+      await firebaseStorageRef.getDownloadURL().then((fileURL) async {
+        _uploadedFileURL = fileURL;
+      });
+      final qr = randomAlphaNumeric(8);
+      FirebaseFirestore.instance.collection("users").doc(x.docs[0].data()['phone']).collection('createdCards').doc(mobile).set({
+        'firstName': firstName,
+        'secondName':secondName,
+        'industry': industry,
+        'email': email,
+        'company': company,
+        'address1':address1,
+        'address2':address2,
+        'postCode':postCode,
+        'country':country,
+        'website': website,
+        'position': position,
+        'specialization': specialization,
+        'image': _uploadedFileURL,
+        'cardNumber': 1,
+        'cardCreated': true,
+        'phone': mobile,
+        'qrCode':qr
+      });
+  }
+  else{
+      final qr = randomAlphaNumeric(8);
+      FirebaseFirestore.instance.collection("users").doc(x.docs[0].data()['phone']).collection('createdCards').doc(mobile).set({
+        'firstName': firstName,
+        'secondName':secondName,
+        'industry': industry,
+        'email': email,
+        'company': company,
+        'address1':address1,
+        'address2':address2,
+        'postCode':postCode,
+        'country':country,
+        'website': website,
+        'position': position,
+        'specialization': specialization,
+        'image': null,
+        'cardNumber': 1,
+        'cardCreated': true,
+        'phone': mobile,
+        'qrCode':qr
+      });
+  }
     await FirebaseFirestore.instance
         .collection('users')
         .doc(x.docs[0].data()['phone'])

@@ -7,6 +7,7 @@ import 'package:share_card/pages/otp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,18 +18,22 @@ class _LoginState extends State<Login> {
   String phone;
   String country;
   @override
+  void initState(){
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: VStack(
       [
         (context.percentHeight * 6).heightBox,
-        "Sign Up".text.bold.size(35).makeCentered(),
+        "sign up".tr().toString().text.bold.size(35).makeCentered(),
         25.heightBox,
         Image.asset('assets/login.jpg',height: context.percentHeight*40,),
         30.heightBox,
-        "Sign up with Phone number".text.semiBold.size(20).make(),
+        "sign_phone".tr().toString().text.semiBold.size(20).make(),
         8.heightBox,
-        "Please enter valid country and mobile number"
+        "valid_country".tr().toString()
             .text
             .thin
             .size(15)
@@ -36,7 +41,7 @@ class _LoginState extends State<Login> {
         10.heightBox,
         IntlPhoneField(
           decoration: InputDecoration(
-            labelText: 'Phone Number',
+            labelText: 'phone'.tr(),
             border: OutlineInputBorder(
               borderSide: BorderSide(),
             ),
@@ -53,14 +58,14 @@ class _LoginState extends State<Login> {
         25.heightBox,
         FlatButton(
           onPressed: () async {
-            final close = context.showLoading(msg: 'Loading');
+            final close = context.showLoading(msg: 'loading'.tr().toString());
             Future.delayed(Duration(seconds: 5),close);
             await FirebaseAuth.instance.verifyPhoneNumber(
               phoneNumber: phone,
               verificationCompleted: (PhoneAuthCredential credential) async {
                 await FirebaseAuth.instance.signInWithCredential(credential);
                 context.showToast(
-                    msg: 'Code detected!',
+                    msg: 'code_detected'.tr().toString(),
                     bgColor: Vx.green500,
                     textColor: Colors.white,
                     position: VxToastPosition.top,
@@ -88,7 +93,7 @@ class _LoginState extends State<Login> {
               verificationFailed: (FirebaseAuthException e) {
                 if (e.code == 'invalid-phone-number') {
                   context.showToast(
-                      msg: 'invalid phone',
+                      msg: 'invalid_phone'.tr().toString(),
                       showTime: 4500,
                       bgColor: Vx.red500,
                       textColor: Colors.white,
@@ -97,7 +102,7 @@ class _LoginState extends State<Login> {
                       pdVertical: 10);
                 } else {
                   context.showToast(
-                      msg: 'invalid phone',
+                      msg: 'invalid_phone'.tr().toString(),
                       showTime: 4500,
                       bgColor: Vx.red500,
                       textColor: Colors.white,
@@ -119,13 +124,13 @@ class _LoginState extends State<Login> {
               codeAutoRetrievalTimeout: (String verificationId) {},
             );
           },
-          child: "CONTINUE".text.size(22).semiBold.white.make().py12(),
+          child: "continue".tr().toString().text.size(22).semiBold.white.make().py12(),
           color: Colors.blue,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(45)),
         ).w(double.infinity).centered(),
         4.heightBox,
-        "By login in you agree our terms and conditions"
+        "t&c".tr().toString()
             .text
             .size(15)
             .makeCentered(),

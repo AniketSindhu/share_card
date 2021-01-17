@@ -1,6 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+import 'package:get/get.dart';
+import 'package:theme_provider/theme_provider.dart';
+import 'history.dart';
+import 'help.dart';
 class Settings extends StatefulWidget {
   @override
   _SettingsState createState() => _SettingsState();
@@ -45,6 +49,43 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           Divider(),
+          ListTile(
+            onTap: (){
+              Get.to(History());
+            },
+            title:"History".text.size(20).make(),
+            leading: Icon(Icons.history),
+          ),
+          Divider(),
+          ListTile(
+            title:"Language".text.size(20).make(),
+            leading: Icon(Icons.language),
+            onTap: (){
+/*               showDialog(context: context,builder: (context){
+                return Dialog(
+                  
+                );
+              }); */
+              EasyLocalization.of(context).locale = Locale('zh','CN');
+            },
+          ),
+          Divider(),
+          ListTile(
+            onTap: (){
+              Get.dialog(ThemeConsumer(child: ThemeDialog()));
+            },
+            title:"Theme".text.size(20).make(),
+            leading: Icon(Icons.theater_comedy),
+          ),
+          Divider(),   
+          ListTile(
+            onTap: (){
+              Get.to(Help());
+            },
+            title:"Help".text.size(20).make(),
+            leading: Icon(Icons.help)
+          ),
+          Divider(),     
         ]
       ),
     );

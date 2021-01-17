@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:get/get.dart';
+import 'contact.dart';
 
 class Help extends StatefulWidget {
   @override
@@ -25,7 +26,9 @@ class _HelpState extends State<Help> {
           FlatButton(
             color:Colors.blue,
             child:'Contact us'.text.white.make(),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Contact()));
+            },
           ).centered(),
           10.heightBox,
           FlatButton(

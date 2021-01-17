@@ -14,13 +14,19 @@ class CreateCardOthers extends StatefulWidget {
 
 class _CreateCardOthersState extends State<CreateCardOthers> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController secondNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController webController = TextEditingController();
   TextEditingController positionController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController address1Controller = TextEditingController();
+  TextEditingController address2Controller = TextEditingController();
+  TextEditingController country = TextEditingController();
+  TextEditingController postalCode = TextEditingController();
+  TextEditingController industry = TextEditingController();
   String specialization;
   File _image;
   final picker = ImagePicker();
@@ -101,11 +107,31 @@ class _CreateCardOthersState extends State<CreateCardOthers> {
                 ),
                 20.heightBox,
                 TextFormField(
-                    controller: nameController,
+                    controller: firstNameController,
                     validator: (v) =>
-                        v.trim().length < 2 ? " Enter valid name" : null,
+                        v.trim().length <=0 ? " Enter valid name" : null,
                     decoration: InputDecoration(
-                      hintText: "Name",
+                      hintText: "First Name*",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                    )).w(double.infinity).h(60),
+                10.heightBox,
+                TextFormField(
+                    controller: secondNameController,
+                    validator: (v) =>
+                        v.trim().length <=0 ? " Enter valid name" : null,
+                    decoration: InputDecoration(
+                      hintText: "Last Name*",
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Vx.gray700,
@@ -190,26 +216,6 @@ class _CreateCardOthersState extends State<CreateCardOthers> {
                     )).w(double.infinity).h(60),
                 10.heightBox,
                 TextFormField(
-                    controller: locationController,
-                    validator: (v) =>
-                        v.trim().length < 2 ? " Enter valid location" : null,
-                    decoration: InputDecoration(
-                      hintText: "Location",
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Vx.gray700,
-                          width: 1,
-                        ),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Vx.gray700,
-                          width: 1,
-                        ),
-                      ),
-                    )).w(double.infinity).h(60),
-                10.heightBox,
-                TextFormField(
                     controller: webController,
                     validator: (v) =>
                         v.trim().length < 2 ? " Enter valid website" : null,
@@ -277,20 +283,129 @@ class _CreateCardOthersState extends State<CreateCardOthers> {
                       );
                     }).toList()).h(60),
                 15.heightBox,
+                TextFormField(
+                    controller: industry,
+                    validator: (v) =>
+                        v.trim().length < 1 ? " Enter valid industry" : null,
+                    decoration: InputDecoration(
+                      hintText: "Industry*",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                    )).w(double.infinity).h(60),
+                10.heightBox,
+                "Company Address".text.size(20).semiBold.make(),
+                5.heightBox,
+                TextFormField(
+                    controller: address1Controller,
+                    validator: (v) =>
+                        v.trim().length < 2 ? " Enter valid address" : null,
+                    decoration: InputDecoration(
+                      hintText: "Address1 *",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                    )).w(double.infinity).h(60),
+                10.heightBox,
+                TextFormField(
+                    controller: address2Controller,
+                    validator: (v) =>
+                        v.trim().length < 2 ? " Enter valid address" : null,
+                    decoration: InputDecoration(
+                      hintText: "Address2 *",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                    )).w(double.infinity).h(60),
+                10.heightBox,
+                TextFormField(
+                    controller: country,
+                    validator: (v) =>
+                        v.trim().length < 1 ? " Enter valid country" : null,
+                    decoration: InputDecoration(
+                      hintText: "Country*",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                    )).w(double.infinity).h(60),
+                10.heightBox,
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                    controller: postalCode,
+                    validator: (v) =>
+                        v.trim().length < 2 ? " Enter valid postalCode" : null,
+                    decoration: InputDecoration(
+                      hintText: "PostCode *",
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Vx.gray700,
+                          width: 1,
+                        ),
+                      ),
+                    )).w(double.infinity).h(60),
+                15.heightBox,
                 FlatButton(
                   onPressed: () async{
                       final close = context.showLoading(msg: 'Loading');
                       Future.delayed(Duration(seconds: 3), close);
                       await createCardOtherfunc(
-                          nameController.text,
+                          firstNameController.text,
+                          secondNameController.text,
                           emailController.text,
                           companyNameController.text,
-                          locationController.text,
                           webController.text,
                           positionController.text,
                           specialization,
                           _image,
-                          phoneNumberController.text);
+                          phoneNumberController.text,
+                          industry.text,
+                          address1Controller.text,
+                          address2Controller.text,
+                          postalCode.text,
+                          country.text
+                          );
 
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectTemplateOther(phone: phoneNumberController.text,)));
                   },

@@ -82,10 +82,10 @@ class _ProfilePageState extends State<ProfilePage> {
           ),      
         body: user!=null||card!=null||items!=null?VStack([
           10.heightBox,
-          CircleAvatar(
+          card.image!=null?CircleAvatar(
             backgroundImage:NetworkImage(card.image,),
             radius: 40,
-          ).centered(),
+          ).centered():Container(),
           5.heightBox,
           card.firstName.text.size(25).bold.makeCentered(),
           5.heightBox,

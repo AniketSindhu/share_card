@@ -1,0 +1,11 @@
+{
+    "sign up": "注册",
+    "sign_phone": "用电话号码注册",
+    "valid_country":"请输入有效的国家和手机号码",
+    "phone": "电话号码",
+    "loading":"装货",
+    "code_detected":"检测到代码",
+    "invalid_phone":"手机无效",
+    "continue":"继续",
+    "t&c":"登录即表示您同意我们的条款和条件"
+}

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -14,7 +15,12 @@ Future<void> main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   bool login=prefs.getBool('login');
   runApp(
-    login==null?App():login?App1():App()
+    EasyLocalization(
+      supportedLocales: [Locale('en','US'),Locale('zh','CN')],
+      path: 'assets/translations', // <-- change patch to your
+      fallbackLocale: Locale('en', 'US'),
+      child: login==null?App():login?App1():App()
+    ),
   );
 }
 

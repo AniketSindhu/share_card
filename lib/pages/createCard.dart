@@ -128,7 +128,7 @@ class _CreateCardState extends State<CreateCard> {
                     validator: (v) =>
                         v.trim().length <=0 ? " Enter valid name" : null,
                     decoration: InputDecoration(
-                      hintText: "Second Name*",
+                      hintText: "Last Name*",
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Vx.gray700,
