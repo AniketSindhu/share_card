@@ -11,7 +11,7 @@ import 'package:share_card/pages/premium.dart';
 import 'package:share_card/pages/profile.dart';
 import 'package:share_card/pages/settings.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_share/flutter_share.dart';
 
 class OptionsModel {
@@ -24,25 +24,25 @@ class OptionsModel {
 List<OptionsModel> optionList = [
   OptionsModel(
       icon: Icon(Icons.settings, color: Colors.blue[700], size: 20),
-      name: "Credits",
+      name: tr("credits").toString(),
       onTap: () {
         Get.to(AddCredits());
       }),
   OptionsModel(
       icon: Icon(Icons.settings, color: Colors.blue[700], size: 20),
-      name: "Add On",
+      name: tr("add_on").toString(),
       onTap: () {
         Get.to(AddOn());
       }),
   OptionsModel(
       icon: Icon(Icons.settings, color: Colors.blue[700], size: 20),
-      name: "Profile",
+      name: tr("profile").toString(),
       onTap: () {
         Get.to(ProfilePage());
       }),
   OptionsModel(
       icon: Icon(Icons.settings, color: Colors.blue[700], size: 20),
-      name: "Premium",
+      name: tr("premium").toString(),
       onTap: () {
         Get.to(Premium());
       }),
@@ -76,13 +76,13 @@ List<OptionsModel> optionList = [
       }), */
   OptionsModel(
       icon: Icon(Icons.settings, color: Colors.blue[700], size: 20),
-      name: "Nearby",
+      name: tr("nearby").toString(),
       onTap: () {
         Get.to(Nearby());
       }),
   OptionsModel(
       icon: Icon(Icons.settings, color: Colors.blue[700], size: 20),
-      name: "Share",
+      name: tr("share").toString(),
       onTap: () async {
         await FlutterShare.share(
           title: 'Visting card',
@@ -92,23 +92,23 @@ List<OptionsModel> optionList = [
       }),
   OptionsModel(
       icon: Icon(Icons.settings, color: Colors.blue[700], size: 20),
-      name: "Settings",
+      name: tr("settings").toString(),
       onTap: () {
         Get.to(Settings());
       }),
 /*   OptionsModel(icon:Icon(Icons.settings,color:Colors.blue[700],size:20),name:"Signature",onTap: (){}), */
   OptionsModel(
       icon: Icon(Icons.logout, color: Colors.blue[700], size: 20),
-      name: "Logout",
+      name: tr("logout").toString(),
       onTap: () {
         Get.dialog(WillPopScope(
-        onWillPop: (){
-          logout();
-          Get.offAll(Login());
-          return Future.value(true);
-        },
+          onWillPop: () {
+            logout();
+            Get.offAll(Login());
+            return Future.value(true);
+          },
           child: Dialog(
-            child: Container(
+              child: Container(
             height: 250,
             width: 300,
             child: Center(
@@ -130,7 +130,7 @@ List<OptionsModel> optionList = [
                   Center(
                     child: FlatButton(
                       child: Text(
-                        'Rate',
+                        tr('rate').toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,

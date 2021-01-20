@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 
 class ChatPage extends StatefulWidget {
   final String chatId;
   final String phone;
   final String toUser;
-  ChatPage(this.phone,this.chatId,this.toUser);
+  ChatPage(this.phone, this.chatId, this.toUser);
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -19,7 +19,11 @@ class _ChatPageState extends State<ChatPage> {
 
   Future<void> callback() async {
     if (messageController.text.length > 0) {
-      await _firestore.collection('chats').doc(widget.chatId).collection('msg').add({
+      await _firestore
+          .collection('chats')
+          .doc(widget.chatId)
+          .collection('msg')
+          .add({
         'text': messageController.text,
         'from': widget.phone,
         'date': DateTime.now().toIso8601String().toString(),
@@ -32,18 +36,25 @@ class _ChatPageState extends State<ChatPage> {
       );
     }
   }
-  void initState(){
+
+  void initState() {
     super.initState();
   }
-    void dispose() {
+
+  void dispose() {
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      centerTitle:true,
-        title: Text(widget.toUser,style:TextStyle(color: Colors.white,fontSize:25,fontWeight: FontWeight.w600),),
+        centerTitle: true,
+        title: Text(
+          widget.toUser,
+          style: TextStyle(
+              color: Colors.white, fontSize: 25, fontWeight: FontWeight.w600),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -52,7 +63,9 @@ class _ChatPageState extends State<ChatPage> {
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: _firestore
-                    .collection('chats').doc(widget.chatId).collection('msg')
+                    .collection('chats')
+                    .doc(widget.chatId)
+                    .collection('msg')
                     .orderBy('date')
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -84,13 +97,14 @@ class _ChatPageState extends State<ChatPage> {
                 children: <Widget>[
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom:10.0,left: 8),
+                      padding: const EdgeInsets.only(bottom: 10.0, left: 8),
                       child: TextField(
                         onSubmitted: (value) => callback(),
                         decoration: InputDecoration(
                           hoverColor: Colors.deepPurpleAccent,
-                          hintText: "Enter a message",
-                          hintStyle: TextStyle(color:Colors.black,fontWeight: FontWeight.w500),
+                          hintText: tr("msg").toString(),
+                          hintStyle: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.w500),
                           border: const OutlineInputBorder(),
                         ),
                         controller: messageController,
@@ -98,7 +112,7 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                   ),
                   SendButton(
-                    text: "Send",
+                    text: tr("send").toString(),
                     callback: callback,
                   )
                 ],
@@ -110,6 +124,7 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 }
+
 class SendButton extends StatelessWidget {
   final String text;
   final VoidCallback callback;
@@ -118,7 +133,10 @@ class SendButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.send,size: 33,),
+      icon: Icon(
+        Icons.send,
+        size: 33,
+      ),
       color: Color(0xffFF16CD),
       onPressed: callback,
     );
@@ -146,41 +164,38 @@ class _MessageState extends State<Message> {
           right: widget.sendByMe ? 24 : 0),
       alignment: widget.sendByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: widget.sendByMe
-            ? EdgeInsets.only(left: 30)
-            : EdgeInsets.only(right: 30),
-        padding: EdgeInsets.only(
-            top: 17, bottom: 17, left: 20, right: 20),
-        decoration: BoxDecoration(
-            borderRadius: widget.sendByMe ? BorderRadius.only(
-                topLeft: Radius.circular(23),
-                topRight: Radius.circular(23),
-                bottomLeft: Radius.circular(23)
-            ) :
-            BorderRadius.only(
-        topLeft: Radius.circular(23),
-          topRight: Radius.circular(23),
-          bottomRight: Radius.circular(23)),
-            gradient: LinearGradient(
-              colors: widget.sendByMe ? [
-                Colors.blue[400],
-                Colors.blue[600],
-              ]
-                  : [
-                Colors.blue[400],
-                Colors.blue[600],
-              ],
-            )
-        ),
-        child: Text(widget.message,
-          textAlign: TextAlign.start,
-          style:TextStyle(
-          color: Colors.white,
-          fontSize: 18,
-          fontFamily: 'OverpassRegular',
-          fontWeight: FontWeight.w700)
-          )
-      ),
+          margin: widget.sendByMe
+              ? EdgeInsets.only(left: 30)
+              : EdgeInsets.only(right: 30),
+          padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
+          decoration: BoxDecoration(
+              borderRadius: widget.sendByMe
+                  ? BorderRadius.only(
+                      topLeft: Radius.circular(23),
+                      topRight: Radius.circular(23),
+                      bottomLeft: Radius.circular(23))
+                  : BorderRadius.only(
+                      topLeft: Radius.circular(23),
+                      topRight: Radius.circular(23),
+                      bottomRight: Radius.circular(23)),
+              gradient: LinearGradient(
+                colors: widget.sendByMe
+                    ? [
+                        Colors.blue[400],
+                        Colors.blue[600],
+                      ]
+                    : [
+                        Colors.blue[400],
+                        Colors.blue[600],
+                      ],
+              )),
+          child: Text(widget.message,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontFamily: 'OverpassRegular',
+                  fontWeight: FontWeight.w700))),
     );
   }
 }

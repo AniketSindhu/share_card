@@ -13,14 +13,21 @@ import 'package:velocity_x/velocity_x.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool login=prefs.getBool('login');
+  bool login = prefs.getBool('login');
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en','US'),Locale('zh','CN')],
-      path: 'assets/translations', // <-- change patch to your
-      fallbackLocale: Locale('en', 'US'),
-      child: login==null?App():login?App1():App()
-    ),
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('zh', 'CN'),
+          Locale('ko', 'KR')
+        ],
+        path: 'assets/translations', // <-- change patch to your
+        fallbackLocale: Locale('en', 'US'),
+        child: login == null
+            ? App()
+            : login
+                ? App1()
+                : App()),
   );
 }
 
@@ -49,64 +56,99 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(
-      saveThemesOnChange: true,
-      loadThemeOnInit: true,
-      themes: [
-        AppTheme(id: 'light_theme', data: ThemeData.light(),description: 'light Theme'),
-        AppTheme(id: 'dark_theme', data: ThemeData.dark(),description: 'dark Theme'),
-        AppTheme(id: 'red', data: ThemeData(primarySwatch: Colors.red),description: 'red Theme'),
-        AppTheme(id: 'pink', data: ThemeData(primarySwatch: Colors.pink),description: 'pink Theme'),
-        AppTheme(id: 'purple', data: ThemeData(primarySwatch: Colors.purple),description: 'purple Theme'),
-        AppTheme(id: 'orange', data: ThemeData(primarySwatch: Colors.orange),description: 'orange Theme'),
-        AppTheme(id: 'green', data: ThemeData(primarySwatch: Colors.green),description: 'green Theme'),
-        AppTheme(id: 'solway_font', data: ThemeData(textTheme: GoogleFonts.solwayTextTheme(Theme.of(context).textTheme,)),description: 'solway font'),
-        AppTheme(id: 'abeezee_font', data: ThemeData(textTheme: GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme,)),description: 'aBeeZee font'),
-        AppTheme(id: 'tenorsans_font', data: ThemeData(textTheme: GoogleFonts.tenorSansTextTheme(Theme.of(context).textTheme,)),description: 'tenorSans font'),
-      ],
-      child: ThemeConsumer(
-        child: Builder(
-          builder:(themeContext)=> GetMaterialApp(
-            routes: {
-              'login':(context)=>Login(),
-              'home':(context)=>HomePage()
-            },
-            theme: ThemeProvider.themeOf(themeContext).data,
-            debugShowCheckedModeBanner: false,
-            home: SplashScreen(
-              seconds: 3,
-              image: new Image.asset('assets/splash.jpeg'),
-              photoSize: 150.0,
-              navigateAfterSeconds: FutureBuilder(
-              // Initialize FlutterFire:
-              future: _initialization,
-              builder: (context, snapshot) {
-                // Check for errors
-                if (snapshot.hasError) {
-                  return  Scaffold(
-                      body: Center(
-                        child:"Network error".text.size(20).bold.make()
-                      ),
-                  ); 
-                }
-                // Once complete, show your application
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return Login();
-                }
-                // Otherwise, show something whilst waiting for initialization to complete
-                return Scaffold(
-                  body: Center(
-                    child:CircularProgressIndicator()
-                  ),
-                );
+        saveThemesOnChange: true,
+        loadThemeOnInit: true,
+        themes: [
+          AppTheme(
+              id: 'light_theme',
+              data: ThemeData.light(),
+              description: 'light Theme'),
+          AppTheme(
+              id: 'dark_theme',
+              data: ThemeData.dark(),
+              description: 'dark Theme'),
+          AppTheme(
+              id: 'red',
+              data: ThemeData(primarySwatch: Colors.red),
+              description: 'red Theme'),
+          AppTheme(
+              id: 'pink',
+              data: ThemeData(primarySwatch: Colors.pink),
+              description: 'pink Theme'),
+          AppTheme(
+              id: 'purple',
+              data: ThemeData(primarySwatch: Colors.purple),
+              description: 'purple Theme'),
+          AppTheme(
+              id: 'orange',
+              data: ThemeData(primarySwatch: Colors.orange),
+              description: 'orange Theme'),
+          AppTheme(
+              id: 'green',
+              data: ThemeData(primarySwatch: Colors.green),
+              description: 'green Theme'),
+          AppTheme(
+              id: 'solway_font',
+              data: ThemeData(
+                  textTheme: GoogleFonts.solwayTextTheme(
+                Theme.of(context).textTheme,
+              )),
+              description: 'solway font'),
+          AppTheme(
+              id: 'abeezee_font',
+              data: ThemeData(
+                  textTheme: GoogleFonts.aBeeZeeTextTheme(
+                Theme.of(context).textTheme,
+              )),
+              description: 'aBeeZee font'),
+          AppTheme(
+              id: 'tenorsans_font',
+              data: ThemeData(
+                  textTheme: GoogleFonts.tenorSansTextTheme(
+                Theme.of(context).textTheme,
+              )),
+              description: 'tenorSans font'),
+        ],
+        child: ThemeConsumer(
+          child: Builder(
+            builder: (themeContext) => GetMaterialApp(
+              routes: {
+                'login': (context) => Login(),
+                'home': (context) => HomePage()
               },
+              theme: ThemeProvider.themeOf(themeContext).data,
+              debugShowCheckedModeBanner: false,
+              home: SplashScreen(
+                seconds: 3,
+                image: new Image.asset('assets/splash.jpeg'),
+                photoSize: 150.0,
+                navigateAfterSeconds: FutureBuilder(
+                  // Initialize FlutterFire:
+                  future: _initialization,
+                  builder: (context, snapshot) {
+                    // Check for errors
+                    if (snapshot.hasError) {
+                      return Scaffold(
+                        body: Center(
+                            child: "Network error".text.size(20).bold.make()),
+                      );
+                    }
+                    // Once complete, show your application
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Login();
+                    }
+                    // Otherwise, show something whilst waiting for initialization to complete
+                    return Scaffold(
+                      body: Center(child: CircularProgressIndicator()),
+                    );
+                  },
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }
-
 
 class App1 extends StatelessWidget {
   // Create the initialization Future outside of `build`:
@@ -115,60 +157,96 @@ class App1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(
-      saveThemesOnChange: true,
-      loadThemeOnInit: true,
-      themes: [
-        AppTheme(id: 'light_theme', data: ThemeData.light(),description: 'light Theme'),
-        AppTheme(id: 'dark_theme', data: ThemeData.dark(),description: 'dark Theme'),
-        AppTheme(id: 'red', data: ThemeData(primarySwatch: Colors.red),description: 'red Theme'),
-        AppTheme(id: 'pink', data: ThemeData(primarySwatch: Colors.pink),description: 'pink Theme'),
-        AppTheme(id: 'purple', data: ThemeData(primarySwatch: Colors.purple),description: 'purple Theme'),
-        AppTheme(id: 'orange', data: ThemeData(primarySwatch: Colors.orange),description: 'orange Theme'),
-        AppTheme(id: 'green', data: ThemeData(primarySwatch: Colors.green),description: 'green Theme'),
-        AppTheme(id: 'solway_font', data: ThemeData(textTheme: GoogleFonts.solwayTextTheme(Theme.of(context).textTheme,)),description: 'solway font'),
-        AppTheme(id: 'abeezee_font', data: ThemeData(textTheme: GoogleFonts.aBeeZeeTextTheme(Theme.of(context).textTheme,)),description: 'aBeeZee font'),
-        AppTheme(id: 'tenorsans_font', data: ThemeData(textTheme: GoogleFonts.tenorSansTextTheme(Theme.of(context).textTheme,)),description: 'tenorSans font'),
-      ],
-      child: ThemeConsumer(
-        child: Builder(
-          builder:(themeContext)=> GetMaterialApp(
-            routes: {
-              'login':(context)=>Login(),
-              'home':(context)=>HomePage()
-            },
-            theme: ThemeProvider.themeOf(themeContext).data,
-            debugShowCheckedModeBanner: false,
-            home: SplashScreen(
-              seconds: 3,
-              image: new Image.asset('assets/splash.jpeg'),
-              photoSize: 150.0,
-              navigateAfterSeconds: FutureBuilder(
-              // Initialize FlutterFire:
-              future: _initialization,
-              builder: (context, snapshot) {
-                // Check for errors
-                if (snapshot.hasError) {
-                  return  Scaffold(
-                      body: Center(
-                        child:"Network error".text.size(20).bold.make()
-                      ),
-                  ); 
-                }
-                // Once complete, show your application
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return HomePage();
-                }
-                // Otherwise, show something whilst waiting for initialization to complete
-                return Scaffold(
-                  body: Center(
-                    child:CircularProgressIndicator()
-                  ),
-                );
+        saveThemesOnChange: true,
+        loadThemeOnInit: true,
+        themes: [
+          AppTheme(
+              id: 'light_theme',
+              data: ThemeData.light(),
+              description: 'light Theme'),
+          AppTheme(
+              id: 'dark_theme',
+              data: ThemeData.dark(),
+              description: 'dark Theme'),
+          AppTheme(
+              id: 'red',
+              data: ThemeData(primarySwatch: Colors.red),
+              description: 'red Theme'),
+          AppTheme(
+              id: 'pink',
+              data: ThemeData(primarySwatch: Colors.pink),
+              description: 'pink Theme'),
+          AppTheme(
+              id: 'purple',
+              data: ThemeData(primarySwatch: Colors.purple),
+              description: 'purple Theme'),
+          AppTheme(
+              id: 'orange',
+              data: ThemeData(primarySwatch: Colors.orange),
+              description: 'orange Theme'),
+          AppTheme(
+              id: 'green',
+              data: ThemeData(primarySwatch: Colors.green),
+              description: 'green Theme'),
+          AppTheme(
+              id: 'solway_font',
+              data: ThemeData(
+                  textTheme: GoogleFonts.solwayTextTheme(
+                Theme.of(context).textTheme,
+              )),
+              description: 'solway font'),
+          AppTheme(
+              id: 'abeezee_font',
+              data: ThemeData(
+                  textTheme: GoogleFonts.aBeeZeeTextTheme(
+                Theme.of(context).textTheme,
+              )),
+              description: 'aBeeZee font'),
+          AppTheme(
+              id: 'tenorsans_font',
+              data: ThemeData(
+                  textTheme: GoogleFonts.tenorSansTextTheme(
+                Theme.of(context).textTheme,
+              )),
+              description: 'tenorSans font'),
+        ],
+        child: ThemeConsumer(
+          child: Builder(
+            builder: (themeContext) => GetMaterialApp(
+              routes: {
+                'login': (context) => Login(),
+                'home': (context) => HomePage()
               },
+              theme: ThemeProvider.themeOf(themeContext).data,
+              debugShowCheckedModeBanner: false,
+              home: SplashScreen(
+                seconds: 3,
+                image: new Image.asset('assets/splash.jpeg'),
+                photoSize: 150.0,
+                navigateAfterSeconds: FutureBuilder(
+                  // Initialize FlutterFire:
+                  future: _initialization,
+                  builder: (context, snapshot) {
+                    // Check for errors
+                    if (snapshot.hasError) {
+                      return Scaffold(
+                        body: Center(
+                            child: "Network error".text.size(20).bold.make()),
+                      );
+                    }
+                    // Once complete, show your application
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return HomePage();
+                    }
+                    // Otherwise, show something whilst waiting for initialization to complete
+                    return Scaffold(
+                      body: Center(child: CircularProgressIndicator()),
+                    );
+                  },
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }

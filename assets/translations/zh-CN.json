@@ -1,18 +1,1 @@
-{
-    "sign up": "注册",
-    "sign_phone": "用电话号码注册",
-    "valid_country":"请输入有效的国家和手机号码",
-    "phone": "电话号码",
-    "loading":"装货",
-    "code_detected":"检测到代码",
-    "invalid_phone":"手机无效",
-    "continue":"继续",
-    "t&c":"登录即表示您同意我们的条款和条件",
-    "verification": "驗證",
-    "otp": "OTP驗證",
-    "enter_otp":"請輸入發送到您手機的otp",
-    "home":"家",
-    "card":"卡",
-    "chat":"聊天室",
-    "more":"更多"
-}
+{"sign up":"注册","sign_phone":"用电话号码注册","valid_country":"请输入有效的国家和手机号码","phone":"电话号码","loading":"载入中","code_detected":"检测到代码！","invalid_phone":"手机无效","continue":"继续","t&c":"登录即表示您同意我们的条款和条件","verification":"验证","otp":"OTP验证","enter_otp":"请输入发送到您手机的otp","home":"家","card":"卡","chat":"聊天室","more":"更多","search":"按专业搜索","no_card":"这里没有卡！","created_cards":"创建的卡：","add_contact":"添加到通讯录","do_contact":"您要将此添加到您的联系人吗？","add":"加","contact_added":"已添加联系人","added_cards":"新增卡：","hi_sent":"感觉吧！","chat_init":"聊天已开始","say_hi":"打招呼”","scan_qr":"扫描二维码","stop":"停止扫描","f_create_card":"首先创建卡","no_user":"没有用户发现无效的二维码","card_not_created":"卡不是由用户创建的！","out_of_cards":"用户没有卡片！","card_added":"卡已添加！","already_added":"卡已添加！","add_Card":"新增卡","share_qr":"与其他用户共享此QR码","share_card":"共享卡","no_chat":"没有聊天","tap_chat":"点按即可聊天","options":"选件","add_on":"添加在","add_on1":"加1","pro_card_design":"专业卡设计","customization":"访问卡定制","buy":"购买","card_with_qr":"使用二维码访问卡","custom_fonts":"自定义字体","add_credits":"添加积分","x_credits":"$ {}积分","x_cards":"$ {}卡","x_price":"{} $","msg":"输入讯息","send":"发送","contact":"联系我们","tell_query":"告诉您的查询","query":"询问","send_query":"发送查询","create_card":"创建卡","create?":"创建卡用于？","for_me":"为了我","for_others":"为他人","add_info":"添加信息","camera":"相机","gallery":"画廊","valid_name":" 输入有效名称","first_name":"名字*","last_name":"姓*","valid_email":" 输入有效邮件地址","email":"电子邮件*","company_name":"公司名*","website":"网站","position":"位置","valid_industry":" 输入有效行业","industry":"行业*","specialization":"专业化","company_address":"公司地址","valid_address":" 输入有效地址","address1":"地址1 *","address2":"地址2 *","valid_country1":" 输入有效国家","country":"国家*","valid_postcode":" 输入有效的邮政编码","postcode":"邮政编码*","save_info":"保存信息","valid_phone":" 输入有效的电话","valid_website":" 输入有效的网站","help":"救命","privacy_policy":"隐私政策","history":"历史","no_hsitory":"没有历史","nearby_users":"附近的使用者","no_user_nearby":"附近没有用户","notifications":"通知事项","no_notifications":"没有通知","details_updated":"详细信息已更新","profile":"个人资料","save":"保存","received":"已收到","shared":"共享","available":"可用的","name":"名称","select_template":"选择模板","card_created":"卡已创建！","settings":"设置","history_deleted":"历史记录已删除","clear_history":"清除历史记录","sounds":"声音","language":"语言","theme":"主题","credits":"学分","premium":"保费","nearby":"附近","share":"分享","logout":"登出","rate":"率"}

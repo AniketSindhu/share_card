@@ -6,6 +6,7 @@ import 'package:share_card/model/cardModel.dart';
 import 'package:share_card/pages/chatPage.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:share_card/methods/firebase.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Chat extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _ChatState extends State<Chat> {
     return Scaffold(
         appBar: AppBar(
           leadingWidth: 10,
-          title: "CHAT".text.semiBold.size(20).white.make(),
+          title: tr("chat").toString().text.semiBold.size(20).white.make(),
         ),
         body: user != null && card != null
             ? StreamBuilder(
@@ -51,7 +52,12 @@ class _ChatState extends State<Chat> {
                           height: (context.percentHeight * 35),
                         ).centered(),
                         (20).heightBox,
-                        "No chats".text.semiBold.size(18).makeCentered()
+                        tr("no_chat")
+                            .toString()
+                            .text
+                            .semiBold
+                            .size(18)
+                            .makeCentered()
                       ],
                     );
                   } else
@@ -85,7 +91,11 @@ class _ChatState extends State<Chat> {
                                         .semiBold
                                         .size(18)
                                         .make(),
-                                subtitle: "Tap to chat".text.size(15).make(),
+                                subtitle: tr("tap_chat")
+                                    .toString()
+                                    .text
+                                    .size(15)
+                                    .make(),
                                 trailing: Icon(
                                   Icons.navigate_next,
                                   color: Colors.blue,

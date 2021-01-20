@@ -6,6 +6,7 @@ import 'package:share_card/model/UserModel.dart';
 import 'package:share_card/model/cardModel.dart';
 import 'package:share_card/pages/homepage.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class SelectTemplate extends StatefulWidget {
   @override
@@ -30,7 +31,7 @@ class _SelectTemplateState extends State<SelectTemplate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: "Select Template".text.white.make(),
+        title: "select_template".tr().toString().text.white.make(),
         centerTitle: true,
       ),
       body: user != null || card != null
@@ -38,23 +39,22 @@ class _SelectTemplateState extends State<SelectTemplate> {
               itemCount: user.isPremium ? 9 : 2,
               itemBuilder: (context, index) {
                 CardModel card1 = CardModel(
-                  cardNumber: index + 1,
-                  company: card.company,
-                  website: card.website,
-                  image: card.image,
-                  firstName: card.firstName,
-                  secondName: card.secondName,
-                  email: card.email,
-                  address1: card.address1,
-                  address2: card.address2,
-                  country: card.country,
-                  postCode: card.postCode,
-                  industry: card.industry,
-                  mobile: card.mobile,
-                  position: card.position,
-                  specialization: card.specialization,
-                  qrCode: card.qrCode
-                );
+                    cardNumber: index + 1,
+                    company: card.company,
+                    website: card.website,
+                    image: card.image,
+                    firstName: card.firstName,
+                    secondName: card.secondName,
+                    email: card.email,
+                    address1: card.address1,
+                    address2: card.address2,
+                    country: card.country,
+                    postCode: card.postCode,
+                    industry: card.industry,
+                    mobile: card.mobile,
+                    position: card.position,
+                    specialization: card.specialization,
+                    qrCode: card.qrCode);
                 return GestureDetector(
                         onTap: () {
                           FirebaseFirestore.instance
@@ -67,7 +67,7 @@ class _SelectTemplateState extends State<SelectTemplate> {
                                   builder: (context) => HomePage()),
                               ModalRoute.withName('/home'));
                           context.showToast(
-                              msg: "Card created!",
+                              msg: "card_created".tr().toString(),
                               bgColor: Colors.green,
                               textColor: Colors.white,
                               showTime: 2500,

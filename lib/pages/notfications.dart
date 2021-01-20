@@ -3,6 +3,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:share_card/methods/firebase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Notifications extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: "Notifications".text.white.make(),
+          title: "notifications".tr().toString().text.white.make(),
           centerTitle: true,
         ),
         body: FutureBuilder(
@@ -31,7 +32,13 @@ class _NotificationsState extends State<Notifications> {
                     height: (context.percentHeight * 35),
                   ).centered(),
                   (20).heightBox,
-                  "No notifications".text.semiBold.size(18).makeCentered()
+                  "no_notifications"
+                      .tr()
+                      .toString()
+                      .text
+                      .semiBold
+                      .size(18)
+                      .makeCentered()
                 ],
               );
             } else {
@@ -44,7 +51,13 @@ class _NotificationsState extends State<Notifications> {
                       height: (context.percentHeight * 35),
                     ).centered(),
                     (20).heightBox,
-                    "No notfications".text.semiBold.size(18).makeCentered()
+                    "no_notifications"
+                        .tr()
+                        .toString()
+                        .text
+                        .semiBold
+                        .size(18)
+                        .makeCentered()
                   ],
                 );
               }
@@ -64,7 +77,7 @@ class _NotificationsState extends State<Notifications> {
                           color: Colors.blue[400],
                           size: 30,
                         ),
-                       /*  trailing:
+                        /*  trailing:
                             "${snapshot.data[index].data()['time'].toDate().format()}"
                                 .text
                                 .make(), */

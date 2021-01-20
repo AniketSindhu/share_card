@@ -13,6 +13,7 @@ import 'package:share_card/pages/qr.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'notfications.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ? Qr()
               : index == 2
                   ? Chat()
-                    : More(),
+                  : More(),
 /*       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
         showSelectedLabels: true,
@@ -91,51 +92,49 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         tabSelectedColor: Colors.blue,
         onTabItemSelected: (val) {
           setState(() {
-            if(val<3)
+            if (val < 3)
               index = val;
             else {
               showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                enableDrag: true,
-                shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
-                backgroundColor: Vx.white,
-                builder: (BuildContext bc){
-                  return Container(
-                    padding: EdgeInsets.only(
-                      bottom: 10,
-                      left: 10,
-                      top: 10,
-                      right: 10
-                    ),
-                    child: GridView.count(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap:true,
-                      crossAxisCount: 4,
-                      children: List.generate(optionList.length, (index) {
-                        return InkWell(
-                          onTap: optionList[index].onTap,
-                          child: VStack([
-                            optionList[index].icon.centered(),
-                            2.heightBox,
-                            optionList[index].name.text.black.size(14).make()
-                          ],crossAlignment: CrossAxisAlignment.center,).p4(),
-                        );
-                      }),
-                    )
-                  );
-                }
-              );
+                  context: context,
+                  isScrollControlled: true,
+                  enableDrag: true,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(25.0))),
+                  backgroundColor: Vx.white,
+                  builder: (BuildContext bc) {
+                    return Container(
+                        padding: EdgeInsets.only(
+                            bottom: 10, left: 10, top: 10, right: 10),
+                        child: GridView.count(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          crossAxisCount: 4,
+                          children: List.generate(optionList.length, (index) {
+                            return InkWell(
+                              onTap: optionList[index].onTap,
+                              child: VStack(
+                                [
+                                  optionList[index].icon.centered(),
+                                  2.heightBox,
+                                  optionList[index]
+                                      .name
+                                      .text
+                                      .black
+                                      .size(14)
+                                      .make()
+                                ],
+                                crossAlignment: CrossAxisAlignment.center,
+                              ).p4(),
+                            );
+                          }),
+                        ));
+                  });
             }
           });
         },
-        icons: [
-          Icons.home,
-          Icons.qr_code,
-          Icons.message,
-          Icons.more_horiz
-        ],
+        icons: [Icons.home, Icons.qr_code, Icons.message, Icons.more_horiz],
         textStyle: TextStyle(color: Colors.black),
       ),
     );
