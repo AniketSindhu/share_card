@@ -7,5 +7,13 @@
     "code_detected":"Code Detected!",
     "invalid_phone":"invalid phone",
     "continue":"CONTINUE",
-    "t&c":"By login in you agree our terms and conditions"
+    "t&c":"By login in you agree our terms and conditions",
+    "verification": "Verfication",
+    "otp": "OTP Verification",
+    "enter_otp":"Please enter otp sent to your mobile",
+    "home":"Home",
+    "card":"Card",
+    "chat":"Chat",
+    "more":"More"
+
 }

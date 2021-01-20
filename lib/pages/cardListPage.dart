@@ -1,7 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as getf;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_card/cardDesigns.dart';
 import 'package:share_card/methods/firebase.dart';
@@ -12,6 +11,8 @@ import 'package:share_card/pages/notfications.dart';
 import 'package:share_card/pages/profile.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 class CardList extends StatefulWidget {
   @override
   _CardListState createState() => _CardListState();
@@ -46,7 +47,7 @@ class _CardListState extends State<CardList> {
       ),
       appBar: AppBar(
         leadingWidth: 10,
-        title: "HOME".text.semiBold.size(20).white.make(),
+        title: "home".tr().toString().text.semiBold.size(20).white.make(),
         actions: [
           GestureDetector(
             onTap:(){
@@ -148,7 +149,7 @@ class _CardListState extends State<CardList> {
                                 padding: EdgeInsets.all(10),
                                 child:GestureDetector(
                                   onTap: (){
-                                    Get.dialog(
+                                    getf.Get.dialog(
                                      Dialog(
                                        child: VStack([
                                          "Add to Contacts".text.bold.black.size(22).makeCentered(),
@@ -233,7 +234,7 @@ class _CardListState extends State<CardList> {
                                       GestureDetector(
                                         child:cardDesigns(card1, context),
                                         onTap: (){
-                                          Get.dialog(
+                                          getf.Get.dialog(
                                             Dialog(
                                               child: VStack([
                                                 "Add to Contacts".text.bold.black.size(22).makeCentered(),

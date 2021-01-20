@@ -7,7 +7,7 @@ import 'package:share_card/methods/firebase.dart';
 import 'package:share_card/pages/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class OTP extends StatefulWidget {
   final String verificationId;
   final String phoneNo;
@@ -23,11 +23,11 @@ class _OTPState extends State<OTP> {
     return Scaffold(
       body:VStack([
         Expanded(child: Image.asset("assets/otp.jpg",height: context.percentHeight*50).centered()),
-        "Verfication".text.semiBold.size(25).makeCentered(),
+        "verification".tr().toString().text.semiBold.size(25).makeCentered(),
         10.heightBox,
-        "OTP Verification".text.normal.size(18).make(),
+        "otp".tr().toString().text.normal.size(18).make(),
         10.heightBox,
-        "Please enter otp sent to your mobile".text.thin.size(16).make(),
+        "enter_otp".tr().toString().text.thin.size(16).make(),
         OTPTextField(
           length: 6,
           width: MediaQuery.of(context).size.width,

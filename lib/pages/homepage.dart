@@ -12,7 +12,7 @@ import 'package:share_card/pages/more.dart';
 import 'package:share_card/pages/qr.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'notfications.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -85,8 +85,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ],
       ), */
       bottomNavigationBar: MotionTabBar(
-        labels: ["Home", "Card", "Chat", "More"],
-        initialSelectedTab: "Home",
+        labels: ["home".tr(), "card".tr(), "chat".tr(), "more".tr()],
+        initialSelectedTab: "home".tr(),
         tabIconColor: Colors.pink,
         tabSelectedColor: Colors.blue,
         onTabItemSelected: (val) {

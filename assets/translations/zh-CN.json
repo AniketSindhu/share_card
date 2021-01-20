@@ -7,5 +7,12 @@
     "code_detected":"检测到代码",
     "invalid_phone":"手机无效",
     "continue":"继续",
-    "t&c":"登录即表示您同意我们的条款和条件"
+    "t&c":"登录即表示您同意我们的条款和条件",
+    "verification": "驗證",
+    "otp": "OTP驗證",
+    "enter_otp":"請輸入發送到您手機的otp",
+    "home":"家",
+    "card":"卡",
+    "chat":"聊天室",
+    "more":"更多"
 }
